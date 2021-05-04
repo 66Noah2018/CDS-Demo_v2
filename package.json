@@ -1,0 +1,32 @@
+{
+    "name": "CDS-Demo_v2",
+    "version": "1.0.0",
+    "description": "Proposed functionality OpenMRS demo",
+    "scripts": {
+        "test": "echo \"Error: no tests installed\" && exit 1",
+        "build": "webpack",
+        "watch": "webpack --watch",
+        "start": "webpack server --open",
+        "server": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/renskelotte48/CDS-Demo_v2.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/renskelotte48/CDS-Demo_v2/issues"
+    },
+    "homepage": "https://github.com/renskelotte48/CDS-Demo_v2#readme",
+    "devDependencies": {
+        "express": "^4.17.1",
+        "file-loader": "^6.2.0",
+        "html-webpack-plugin": "^5.3.1",
+        "path": "^0.12.7",
+        "webpack": "^5.36.2",
+        "webpack-cli": "^4.6.0",
+        "webpack-dev-middleware": "^4.1.0",
+        "webpack-dev-server": "^3.11.2"
+    }
+}
