@@ -20,13 +20,23 @@
     },
     "homepage": "https://github.com/renskelotte48/CDS-Demo_v2#readme",
     "devDependencies": {
+        
         "express": "^4.17.1",
         "file-loader": "^6.2.0",
+        "fs": "0.0.1-security",
         "html-webpack-plugin": "^5.3.1",
-        "path": "^0.12.7",
+        
+        "mysql": "^2.18.1",
+       
+        "raw-loader": "^4.0.2",
+        
         "webpack": "^5.36.2",
         "webpack-cli": "^4.6.0",
         "webpack-dev-middleware": "^4.1.0",
         "webpack-dev-server": "^3.11.2"
+    },
+    "dependencies": {
+        "browserify": "^17.0.0",
+        "jquery": "^3.6.0"
     }
 }

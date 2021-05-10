@@ -2,6 +2,7 @@
 Proposed functionality openmrs - demo v2
 
 SETUP
+manually create database openmrs in local mysql installation
 npm i
 
 START SERVER
