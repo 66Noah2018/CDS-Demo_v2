@@ -1,16 +1,7 @@
-// const databaseConnection = require('../../server');
 let runtimeProperties = "";
 const fs = require('fs');
 const mysql = require('mysql2');
-
-async function createRuntimeProperties() { //doesnt work
-    const properties = await utils.getUserInputProperties()
-  
-    fs.writeFile('../../runtime-properties.json', properties, function (err) {
-      if (err) throw err;
-      console.info("Runtime properties created");
-    });
-}
+const { exit } = require('process');
   
 function setRuntimeProperties() {
     try {
@@ -18,8 +9,8 @@ function setRuntimeProperties() {
     }
     catch (err) {
       if (err.code == "MODULE_NOT_FOUND") {
-        createRuntimeProperties();
-        setRuntimeProperties();      
+        console.error('No runtime-properties file found. Please make sure to run npm run setup before attempting to use the server!'); 
+        exit(1);   
       }
       else throw err;
     }
