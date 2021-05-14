@@ -29,4 +29,9 @@ async function getUserInputProperties() {
       }`;
 }
 
-module.exports = { dateToString, getUserInputProperties }
+function parseDate(string) {
+    if (!string) return null;
+    else return Date(string);
+}
+
+module.exports = { dateToString, getUserInputProperties, parseDate }

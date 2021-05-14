@@ -11,7 +11,7 @@ router.get('/:patientId', async function(req, res, next) {
     }
 });
 
-router.get('/:episodeId', async function(req, res, next) {
+router.get('single/:episodeId', async function(req, res, next) {
     try {
         res.json(await episodes.getEpisode(req.params.episodeId));
     } catch (err) {

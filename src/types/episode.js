@@ -1,4 +1,5 @@
-const dateToString = require('../services/utils');
+const dateToString = require('../services/utils').dateToString;
+const parseDate = require('../services/utils').parseDate;
 
 class Episode {
     constructor(iPatientId, iEpisodeId, sEpisodeTitle, 
@@ -65,4 +66,11 @@ class Episode {
     setEpisodeGeneral(general) { this.bGeneral = general; }
 }
 
-module.exports = Episode;
+function parseEpisode(string) {
+    return new Episode(string.iPatientId, string.iEpisodeId, string.sEpisodeTitle, string.bInProblemEpisode, parseDate(string.dEpisodeStartDate), parseDate(string.dEpisodeEndDate), string.sEpisodeICPC, string.bGeneral)
+}
+
+module.exports = {
+    Episode: Episode,
+    parseEpisode
+};

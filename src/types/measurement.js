@@ -1,4 +1,5 @@
-const dateToString = require('../services/utils');
+const dateToString = require('../services/utils').dateToString;
+const parseDate = require('../services/utils').parseDate;
 
 class Measurement {
     constructor(iPatientId, sMemoCode, sMaterial, sReqDate, sDescription, sDescriptionShort, sMVResult, bNotNormal, iLowLimit, iHighLimit, tComment, iMeasurementId, iLabCode) {
@@ -33,12 +34,6 @@ class Measurement {
             "iMeasurementId": this.iMeasurementId,
             "iLabCode": this.iLabCode
         });
-    }
-
-    parseMeasurement(string) {
-        const result = JSON.parse(string);
-        return new Measurement(result.iPatientId, result.sMemoCode, result.sMaterial, Date(result.sReqDate), result.sDescription, result.sDescriptionShort, result.sMVResult, 
-            ParseInt(result.bNotNormal), result.iLowLimit, result.iHighLimit, result.tComment, result.iMeasurementId, result.iLabCode);
     }
 
     measurementToSql(type) {
@@ -99,4 +94,12 @@ class Measurement {
     setLabCode(labCode) { this.iLabCode = labCode; }
 }
 
-module.exports = Measurement;
+function parseMeasurement(string) {
+    return new Measurement(string.iPatientId, string.sMemoCode, string.sMaterial, parseDate(string.sReqDate), string.sDescription, string.sDescriptionShort, string.sMVResult, 
+        ParseInt(string.bNotNormal), string.iLowLimit, string.iHighLimit, string.tComment, string.iMeasurementId, string.iLabCode);
+}
+
+module.exports = {
+    Measurement: Measurement,
+    parseMeasurement
+};

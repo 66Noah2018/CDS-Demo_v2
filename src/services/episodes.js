@@ -1,5 +1,5 @@
 const db = require('./db');
-const parseEpisode = require('../types/episode');
+const parseEpisode = require('../types/episode').parseEpisode;
 
 async function getEpisodes(patientId) {
     const rows = await db.query("SELECT * FROM episodes WHERE iPatientId = ?", [patientId]);

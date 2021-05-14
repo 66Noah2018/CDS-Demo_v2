@@ -1,4 +1,5 @@
-const dateToString = require('../services/utils');
+const dateToString = require('../services/utils').dateToString;
+const parseDate = require('../services/utils').parseDate;
 
 class Prescription {
     constructor(iPatientId, dPrescriptionDate, iNo, sUnits, 
@@ -42,11 +43,6 @@ class Prescription {
             "sPRCode": this.sPRCode,
             "sGPCode": this.sGPCode
         });
-    }
-
-    parsePrescription(string) {
-        const result = JSON.parse(string);
-        return new Prescription(result.iPatientId, Date(result.dPrescriptionDate), result.iNo, result.sUnits, result.sLabel, result.sATKODE, Date(result.dPrescriptionEndDate), result.sDosingCode, result.bOpiumLaw, ParseInt(result.bChronic), ParseInt(result.bPrescribed), result.tDosingInstructions, result.sATCCode, result.sHPCode, result.sPRCode, result.sGPCode);
     }
 
     prescriptionToSql() {
@@ -102,4 +98,13 @@ class Prescription {
     setGPCode(GPCode) { this.sGPCode = GPCode; }
 }
 
-module.exports = Prescription;
+function parsePrescription(string) {
+    return new Prescription(string.iPatientId, parseDate(string.dPrescriptionDate), string.iNo, string.sUnits, string.sLabel, string.sATKODE, parseDate(string.dPrescriptionEndDate), 
+        string.sDosingCode, string.bOpiumLaw, ParseInt(string.bChronic), ParseInt(string.bPrescribed), string.tDosingInstructions, string.sATCCode, string.sHPCode, string.sPRCode, 
+        string.sGPCode);
+}
+
+module.exports = {
+    Prescription: Prescription,
+    parsePrescription
+};

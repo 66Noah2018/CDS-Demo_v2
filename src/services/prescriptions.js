@@ -1,5 +1,5 @@
 const db = require('./db');
-const parsePrescription = require('../types/prescription');
+const parsePrescription = require('../types/prescription').parsePrescription;
 
 async function getPrescriptions(patientId) {
     const rows = await db.query("SELECT * FROM patient_prescriptions WHERE iPatientId = ?", patientId);

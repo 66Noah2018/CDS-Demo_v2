@@ -1,5 +1,5 @@
 const db = require('./db');
-const parsePatient = require('../types/patient');
+const parsePatient = require('../types/patient').parsePatient;
 
 async function getPatients() {
     const rows = await db.query("SELECT * FROM patients");

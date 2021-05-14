@@ -1,5 +1,5 @@
 const db = require('./db');
-const parseMeasurement = require('../types/measurement');
+const parseMeasurement = require('../types/measurement').parseMeasurement;
 
 async function getMeasurements(patientId) {
     const rows = await db.query("SELECT * FROM measurement_values WHERE iPatientId = ?", patientId);

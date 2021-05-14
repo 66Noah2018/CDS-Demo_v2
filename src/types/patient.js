@@ -1,4 +1,5 @@
-const dateToString = require('../services/utils');
+const dateToString = require('../services/utils').dateToString;
+const parseDate = require('../services/utils').parseDate;
 
 class Patient {
     constructor(iPatientId, sPatSex, dPatBirthDate, iPatPosition, sPatCodeActive, sPatTitel, sPatCategory, sPatNameUsage, sPatMaritalStatus, dPatDeceased, bPatDeceased, dDateRegistered, 
@@ -38,14 +39,6 @@ class Patient {
             "sReasonForLeaving": this.sReasonForLeaving,
             "bDeleted": this.bDeleted
         });
-    }
-
-    parsePatient(string) {
-        const result = JSON.parse(string);
-        return new Patient(result.iPatientId, result.sPatSex, Date(result.dPatBirthDate), parseInt(result.iPatPosition), 
-            result.sPatCodeActive, result.sPatTitel, result.sPatCategory, result.sPatNameUsage, result.sPatMaritalStatus, 
-            Date(result.dPatDeceased), result.bPatDeceased, Date(result.dDateRegistered), Date(result.dDateUnregistered), 
-            result.sReasonForLeaving, result.bDeleted);
     }
 
     patientToSql(type) {
@@ -113,4 +106,14 @@ class Patient {
     setDeleted(deleted) { this.bDeleted = deleted; }
 }
 
-module.exports = Patient;
+function parsePatient(string) {
+    return new Patient(string.iPatientId, string.sPatSex, parseDate(string.dPatBirthDate), parseInt(string.iPatPosition), 
+        string.sPatCodeActive, string.sPatTitel, string.sPatCategory, string.sPatNameUsage, string.sPatMaritalStatus, 
+        parseDate(string.dPatDeceased), string.bPatDeceased, parseDate(string.dDateRegistered), parseDate(string.dDateUnregistered), 
+        string.sReasonForLeaving, string.bDeleted);
+}
+
+module.exports = {
+    Patient: Patient,
+    parsePatient
+};
