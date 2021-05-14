@@ -16,3 +16,4 @@ npm-debug.log*
 .DS_Store       # Macs often create this file
 node_modules/
 dist/
+runtime-properties.json

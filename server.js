@@ -1,74 +1,35 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
-const mysql = require('mysql');
 
 const app = express();
 const config = require('./webpack.config.js');
 const compiler = webpack(config);
-const rootPassword = "Miles@2018"
-const fs = require('fs');
+const db = require('./src/services/db');
 
-function getRootPassword() { // TODO: rewrite to password input
-  if (rootPassword == "") {
-      const result = prompt("Enter database root password", ""); //not possible on server-side. find other option (native os password popup?)
-      if (result != null) {
-          rootPassword = result;
-      }  
-  }
-  
-  return rootPassword;
-}
+const patientRouter = require('./src/routes/patients');
+const episodeRouter = require('./src/routes/episodes');
+const measurementRouter = require('./src/routes/measurements');
+const prescriptionRouter = require('./src/routes/prescriptions');
 
-function getInitialConnection() {
-  return mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: getRootPassword(),
-    port: 3306,
-    database: 'openmrs'
-  });
-}
+db.executeUpdateScript();
 
-var databaseConnection = getInitialConnection();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, }));
+app.use('/episodes', episodeRouter);
+app.use('/measurements', measurementRouter);
+app.use('/patients', patientRouter);
+app.use('/prescriptions', prescriptionRouter);
 
-function readSQLFile() {
-  var txt = fs.readFileSync('./src/initDatabase.txt', "utf-8");
+// Error handling middleware
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  console.error(err.message, err.stack);
+  res.status(statusCode).json({'message': err.message});
 
-  var queries = txt.split(';');
-  return queries;
-}
-
-function executeUpdateScript() {
-  databaseConnection.query("CREATE DATABASE IF NOT EXISTS openmrs", (err, results, fields) => {
-    if (err) throw err;
-  });
-
-  databaseConnection.config.database = 'openmrs';
-  
-  const queries = readSQLFile();
-  queries.forEach(query => {
-    databaseConnection.query(query, (err, results, fields) => {
-        if (err = 'ER_DUP_KEYNAME') return; // needed because there is no INSERT INDEX IF NOT EXISTS in mysql
-        else throw err;
-    })
-  })
-}
-
-executeUpdateScript();
-
-async function queryDatabase(sqlString, values = []) {
-  databaseConnection.query(sqlString, values, function(error, results) {
-    if (error) throw error;
-    else {
-      return results
-    }
-  })
-}
-
-console.log(queryDatabase('SELECT * FROM episodes'))
-
-exports.queryDatabase=queryDatabase
+  return;
+})
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
