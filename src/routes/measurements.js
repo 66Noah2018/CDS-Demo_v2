@@ -1,49 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const measurements = require('../services/measurements');
+const dbCon = require('../services/db').databaseConnection;
 
 router.get('/:patientId', async function(req, res, next) {
     try {
-        res.json(await measurements.getMeasurements(req.params.patientId));
+        dbCon.execute(`SELECT * FROM measurement_values WHERE iPatientId = ${req.params.patientId}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) {
         console.error(`Error while getting measurements for patient with patientId ${req.params.patientId} `, err.message);
         next(err);
     }
 });
 
-router.get('/:measurementId', async function(req, res, next) {
+router.get('/:patientId/:measurementId', async function(req, res, next) {
     try {
-        res.json(await measurements.getMeasurement(req.params.measurementId));
+        dbCon.execute(`SELECT * FROM measurement_values WHERE iPatientId = ${req.params.patientId} AND iMeasurementId = ${req.params.measurementId}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) {
-        console.error(`Error while getting measurement with measurementId ${req.params.measurementId} `, err.message);
+        console.err(`Error while getting measurements with measurementId ${req.params.measurementId} for patient with patientId ${req.params.patientId}`, err.message);
         next(err);
     }
-});
+})
 
-// measurement input for the following two functions is stringified object
-router.post('/:measurement', async function(req, res, next) {
+// measurement input for the following function is sql syntax
+router.post('/:patientId/:measurement', async function(req, res, next) {
     try {
-        res.json(await measurements.addMeasurement(req.params.measurement));
+        dbCon.execute(`INSERT INTO measurement_values VALUES ${req.params.measurement} WHERE iPatientId = ${req.params.patientId}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) {
         console.error(`Error while adding new measurement `, err.message);
-        next(err);
-    }
-});
-
-router.put('/:measurement', async function(req, res, next) {
-    try {
-        res.json(await measurements.updateMeasurement(req.params.measurement));
-    } catch (err) {
-        console.error(`Error while updating measurement `, err.message);
-        next(err);
-    }
-});
-
-router.delete('/:measurementId', async function(req, res, next) {
-    try {
-        res.json(await measurements.deleteMeasurement(req.params.measurementId));
-    } catch (err) {
-        console.error(`Error while deleting measurement with measurementId ${req.params.measurementId} `, err.message);
         next(err);
     }
 });

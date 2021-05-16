@@ -60,9 +60,4 @@ function executeUpdateScript() {
     })
 }
 
-async function query(sql, params) {
-    const results = databaseConnection.execute(sql, params);
-    return results;
-}
-
-module.exports = { query, executeUpdateScript }
+module.exports = { executeUpdateScript, databaseConnection }

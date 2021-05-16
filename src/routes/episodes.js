@@ -1,38 +1,50 @@
 const express = require('express');
 const router = express.Router();
-const episodes = require('../services/episodes');
+const dbCon = require('../services/db').databaseConnection;
 
-router.get('/:patientId', async function(req, res, next) {
+router.get('/patient/:patientId', async function(req, res, next) {
     try {
-        res.json(await episodes.getEpisodes(req.params.patientId));
+        dbCon.execute(`SELECT * FROM episodes WHERE iPatientId = ${req.params.patientId}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) { 
         console.error(`Error while getting episodes `, err.messsage);
         next(err);
     }
 });
 
-router.get('single/:episodeId', async function(req, res, next) {
+router.get('/:episodeId', async function(req, res, next) {
     try {
-        res.json(await episodes.getEpisode(req.params.episodeId));
+        dbCon.execute(`SELECT * FROM episodes WHERE iEpisodeId = ${req.params.episodeId}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) {
         console.error(`Error while getting episode with episodeId ${req.params.episodeId} `, err.messsage);
         next(err);
     }
 });
 
-// episode input for the following two functions is stringified object
+// episode input for the following two functions is sql syntax
 router.post('/:episode', async function(req, res, next) {
     try {
-        res.json(await episodes.addEpisode(req.params.episode));
+        dbCon.execute(`INSERT INTO episodes VALUES ${req.params.episode}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) {
         console.error(`Error while adding episode `, err.message);
         next(err);
     }
 });
 
-router.put('/:episode', async function(req, res, next) {
+router.put('/:episodeId/:episode', async function(req, res, next) {
     try {
-        res.json(await episodes.updateEpisode(req.params.episode));
+        dbCon.execute(`UPDATE episodes SET ${req.params.episode} WHERE iEpisodeId = ${req.params.episodeId}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) {
         console.error(`Error while updating episode `, err.message);
         next(err);
@@ -41,7 +53,10 @@ router.put('/:episode', async function(req, res, next) {
 
 router.delete('./:episodeId', async function (req, res, next) {
     try {
-        res.json(await episodes.deleteEpisode(req.params.episodeId));
+        dbCon.execute(`DELETE FROM episodes WHERE iEpisodeId = ${req.params.episodeId}`, function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        })
     } catch (err) {
         console.error(`Error while deleting episode with episodeId ${req.params.episodeId} `, err.message);
         next(err);
