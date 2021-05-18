@@ -42,7 +42,7 @@ function getInitialConnection() {
 }
 
 let databaseConnection = getInitialConnection();
-databaseConnection.config.namedPlaceholders = true
+// databaseConnection.config.namedPlaceholders = true
   
 function readSQLFile() {
     var txt = fs.readFileSync(__dirname + '/initDatabase.txt', "utf-8");

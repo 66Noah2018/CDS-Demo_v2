@@ -1,6 +1,3 @@
-const dateToString = require('../services/utils').dateToString;
-const parseDate = require('../services/utils').parseDate;
-
 class Episode {
     constructor(iPatientId, iEpisodeId, sEpisodeTitle, 
         bInProblemEpisode, dEpisodeStartDate, dEpisodeEndDate, 
@@ -21,8 +18,8 @@ class Episode {
             "iEpisodeId": this.iEpisodeId,
             "sEpisodeTitle": this.sEpisodeTitle,
             "bInProblemEpisode": this.bInProblemEpisode,
-            "dEpisodeStartDate": dateToString(this.dEpisodeStartDate),
-            "dEpisodeEndDate": dateToString(this.dEpisodeEndDate),
+            "dEpisodeStartDate": this.dEpisodeStartDate,
+            "dEpisodeEndDate": this.dEpisodeEndDate,
             "sEpisodeICPC": this.sEpisodeICPC,
             "bGeneral": this.bGeneral
         });
@@ -30,22 +27,23 @@ class Episode {
 
     episodeToSql(type) {
         if (type == "add") {
+            return `(${this.iPatientId},
+                ${this.iEpisodeId},
+                "${this.sEpisodeTitle}",
+                "${this.bInProblemEpisode}",
+                "${this.dEpisodeStartDate}",
+                "${this.dEpisodeEndDate}",
+                "${this.sEpisodeICPC}",
+                ${this.bGeneral})`;
+        } else if (type == "update") {
             return `iPatientId = ${this.iPatientId},
                 iEpisodeId = ${this.iEpisodeId},
-                sEpisodeTitle = ${this.sEpisodeTitle},
-                bInProblemEpisode = ${this.bInProblemEpisode},
-                dEpisodeStartdate = ${dateToString(this.dEpisodeStartDate)},
-                dEpisodeEndDate = ${dateToString(this.dEpisodeEndDate)},
-                sEpisodeICPC = ${this.sEpisodeICPC},
+                sEpisodeTitle = "${this.sEpisodeTitle}",
+                bInProblemEpisode = "${this.bInProblemEpisode}",
+                dEpisodeStartDate = "${this.dEpisodeStartDate}",
+                dEpisodeEndDate = "${this.dEpisodeEndDate}",
+                sEpisodeICPC = "${this.sEpisodeICPC}",
                 bGeneral = ${this.bGeneral}`;
-        } else if (type == "update") {
-            return [`iEpisodeId = ${this.iEpisodeId},
-                sEpisodeTitle = ${this.sEpisodeTitle},
-                bInProblemEpisode = ${this.bInProblemEpisode},
-                dEpisodeStartDate = ${dateToString(this.dEpisodeStartDate)},
-                dEpisodeEndDate = ${dateToString(this.dEpisodeEndDate)},
-                sEpisodeICPC = ${this.sEpisodeICPC},
-                bGeneral = ${this.bGeneral}`, this.iPatientId];
         } else throw TypeError("Specified type for episodeToSql was not add or update");
     }
 
@@ -67,7 +65,7 @@ class Episode {
 }
 
 function parseEpisode(string) {
-    return new Episode(string.iPatientId, string.iEpisodeId, string.sEpisodeTitle, string.bInProblemEpisode, parseDate(string.dEpisodeStartDate), parseDate(string.dEpisodeEndDate), string.sEpisodeICPC, string.bGeneral)
+    return new Episode(string.iPatientId, string.iEpisodeId, string.sEpisodeTitle, string.bInProblemEpisode, string.dEpisodeStartDate, string.dEpisodeEndDate, string.sEpisodeICPC, string.bGeneral)
 }
 
 module.exports = {

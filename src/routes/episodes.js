@@ -51,7 +51,7 @@ router.put('/:episodeId/:episode', async function(req, res, next) {
     }
 });
 
-router.delete('./:episodeId', async function (req, res, next) {
+router.delete('/:episodeId', async function (req, res, next) {
     try {
         dbCon.execute(`DELETE FROM episodes WHERE iEpisodeId = ${req.params.episodeId}`, function(err, result) {
             if (err) throw err;

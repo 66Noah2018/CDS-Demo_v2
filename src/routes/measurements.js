@@ -27,9 +27,9 @@ router.get('/:patientId/:measurementId', async function(req, res, next) {
 })
 
 // measurement input for the following function is sql syntax
-router.post('/:patientId/:measurement', async function(req, res, next) {
+router.post('/:measurement', async function(req, res, next) {
     try {
-        dbCon.execute(`INSERT INTO measurement_values VALUES ${req.params.measurement} WHERE iPatientId = ${req.params.patientId}`, function(err, result) {
+        dbCon.execute(`INSERT INTO measurement_values VALUES ${req.params.measurement}`, function(err, result) {
             if (err) throw err;
             res.json(result);
         })

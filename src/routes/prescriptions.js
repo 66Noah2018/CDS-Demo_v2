@@ -15,9 +15,9 @@ router.get('/:patientId', async function(req, res, next) {
 });
 
 // prescription input for following function is sql syntax
-router.post('/:patientId/:prescription', async function(req, res, next) {
+router.post('/:prescription', async function(req, res, next) {
     try {
-        dbCon.execute(`INSERT INTO patient_prescriptions VALUES ${req.params.prescription} WHERE iPatientId = ${req.params.patientId}`, function(err, result) {
+        dbCon.execute(`INSERT INTO patient_prescriptions VALUES ${req.params.prescription}`, function(err, result) {
             if (err) throw err;
             res.json(result);
         })

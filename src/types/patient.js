@@ -1,6 +1,3 @@
-const dateToString = require('../services/utils').dateToString;
-const parseDate = require('../services/utils').parseDate;
-
 class Patient {
     constructor(iPatientId, sPatSex, dPatBirthDate, iPatPosition, sPatCodeActive, sPatTitel, sPatCategory, sPatNameUsage, sPatMaritalStatus, dPatDeceased, bPatDeceased, dDateRegistered, 
         dDateUnregistered, sReasonForLeaving, bDeleted) {
@@ -43,9 +40,25 @@ class Patient {
 
     patientToSql(type) {
         if (type == "add") {
+            return `(${this.iPatientId},
+                "${this.sPatSex}",
+                "${this.dPatBirthDate}",
+                ${this.iPatPosition},
+                ${this.sPatCodeActive},
+                ${this.sPatTitel},
+                ${this.sPatCategory},
+                ${this.sPatNameUsage},
+                ${this.sPatMaritalStatus},
+                ${this.dPatDeceased},
+                ${this.bPatDeceased},
+                ${this.dDateRegistered},
+                ${this.dDateUnregistered},
+                ${this.sReasonForLeaving},
+                ${this.bDeleted})`;
+        } else if (type == "update") {
             return `iPatientId = ${this.iPatientId},
-                sPatSex = ${this.sPatSex},
-                dPatBirthDate = ${dateToString(this.dPatBirthDate)},
+                sPatSex = "${this.sPatSex}",
+                dPatBirthDate = "${this.dPatBirthDate}",
                 iPatPosition = ${this.iPatPosition},
                 sPatCodeActive = ${this.sPatCodeActive},
                 sPatTitel = ${this.sPatTitel},
@@ -54,25 +67,10 @@ class Patient {
                 sPatMaritalStatus = ${this.sPatMaritalStatus},
                 dPatDeceased = ${this.dPatDeceased},
                 bPatDeceased = ${this.bPatDeceased},
-                dDateRegistered = ${dateToString(this.dDateRegistered)},
-                dDateUnregistered = ${dateToString(this.dDateUnregistered)},
+                dDateRegistered = ${this.dDateRegistered},
+                dDateUnregistered = ${this.dDateUnregistered},
                 sReasonForLeaving = ${this.sReasonForLeaving},
                 bDeleted = ${this.bDeleted}`;
-        } else if (type == "update") {
-            return [`sPatSex = ${this.sPatSex},
-                dPatBirthDate = ${dateToString(this.dPatBirthDate)},
-                iPatPosition = ${this.iPatPosition},
-                sPatCodeActive = ${this.sPatCodeActive},
-                sPatTitel = ${this.sPatTitel},
-                sPatCategory = ${this.sPatCategory},
-                sPatNameUsage = ${this.sPatNameUsage},
-                sPatMaritalStatus = ${this.sPatMaritalStatus},
-                dPatDeceased = ${this.dPatDeceased},
-                bPatDeceased = ${this.bPatDeceased},
-                dDateRegistered = ${dateToString(this.dDateRegistered)},
-                dDateUnregistered = ${dateToString(this.dDateUnregistered)},
-                sReasonForLeaving = ${this.sReasonForLeaving},
-                bDeleted = ${this.bDeleted}`, this.iPatientId];
         } else throw TypeError("Type for patientToSql was not add or update");
     }
 
@@ -107,9 +105,9 @@ class Patient {
 }
 
 function parsePatient(string) {
-    return new Patient(string.iPatientId, string.sPatSex, parseDate(string.dPatBirthDate), parseInt(string.iPatPosition), 
+    return new Patient(string.iPatientId, string.sPatSex, string.dPatBirthDate, parseInt(string.iPatPosition), 
         string.sPatCodeActive, string.sPatTitel, string.sPatCategory, string.sPatNameUsage, string.sPatMaritalStatus, 
-        parseDate(string.dPatDeceased), string.bPatDeceased, parseDate(string.dDateRegistered), parseDate(string.dDateUnregistered), 
+        string.dPatDeceased, string.bPatDeceased, string.dDateRegistered, string.dDateUnregistered, 
         string.sReasonForLeaving, string.bDeleted);
 }
 

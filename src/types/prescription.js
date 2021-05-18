@@ -1,6 +1,3 @@
-const dateToString = require('../services/utils').dateToString;
-const parseDate = require('../services/utils').parseDate;
-
 class Prescription {
     constructor(iPatientId, dPrescriptionDate, iNo, sUnits, 
         sLabel, sATKODE, dPrescriptionEndDate, sDosingCode, 
@@ -46,22 +43,22 @@ class Prescription {
     }
 
     prescriptionToSql() {
-        return `iPatientId = ${this.iPatientId},
-            dPrescriptionDate = ${dateToString(this.dPrescriptionDate)},
-            iNo = ${this.iNo},
-            sUnits = ${this.sUnits},
-            sLabel = ${this.sLabel},
-            sATKODE = ${this.sATKODE},
-            dPrescriptionEndDate = ${dateToString(this.dPrescriptionEndDate)},
-            sDosingCode = ${this.sDosingCode},
-            bOpiumLaw = ${this.bOpiumLaw},
-            bChronic = ${this.bChronic},
-            bPrescribed = ${this.bPrescribed},
-            tDosingInstruction = ${this.tDosingInstructions},
-            sATCCode = ${this.sATCCode},
-            sHPCode = ${this.sHPCode},
-            sPRCode = ${this.sPRCode},
-            sGPCode = ${this.sGPCode}`;
+        return `(${this.iPatientId},
+            "${this.dPrescriptionDate}",
+            "${this.iNo}",
+            "${this.sUnits}",
+            "${this.sLabel}",
+            "${this.sATKODE}",
+            "${this.dPrescriptionEndDate}",
+            "${this.sDosingCode}",
+            ${this.bOpiumLaw},
+            ${this.bChronic},
+            ${this.bPrescribed},
+            "${this.tDosingInstructions}",
+            "${this.sATCCode}",
+            "${this.sHPCode}",
+            "${this.sPRCode}",
+            "${this.sGPCode}")`;
     }
 
     getPatientId() { return this.iPatientId; }
@@ -99,7 +96,7 @@ class Prescription {
 }
 
 function parsePrescription(string) {
-    return new Prescription(string.iPatientId, parseDate(string.dPrescriptionDate), string.iNo, string.sUnits, string.sLabel, string.sATKODE, parseDate(string.dPrescriptionEndDate), 
+    return new Prescription(string.iPatientId, string.dPrescriptionDate, string.iNo, string.sUnits, string.sLabel, string.sATKODE, string.dPrescriptionEndDate, 
         string.sDosingCode, string.bOpiumLaw, ParseInt(string.bChronic), ParseInt(string.bPrescribed), string.tDosingInstructions, string.sATCCode, string.sHPCode, string.sPRCode, 
         string.sGPCode);
 }

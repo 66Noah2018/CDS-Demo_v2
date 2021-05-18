@@ -1,6 +1,3 @@
-const dateToString = require('../services/utils').dateToString;
-const parseDate = require('../services/utils').parseDate;
-
 class Measurement {
     constructor(iPatientId, sMemoCode, sMaterial, sReqDate, sDescription, sDescriptionShort, sMVResult, bNotNormal, iLowLimit, iHighLimit, tComment, iMeasurementId, iLabCode) {
         this.iPatientId = iPatientId;
@@ -36,35 +33,20 @@ class Measurement {
         });
     }
 
-    measurementToSql(type) {
-        if (type == "add") {
-            return `iPatientId = ${this.iPatientId},
-                sMemoCode = ${this.sMemoCode},
-                sMaterial = ${this.sMaterial},
-                sReqDate = ${dateToString(this.sReqDate)}
-                sDescription = ${this.sDescription},
-                sDescriptionShort = ${this.sDescriptionShort},
-                sMVResult = ${this.sMVResult},
-                bNotNormal = ${this.bNotNormal},
-                iLowLimit = ${this.iLowLimit},
-                iHighLimit = ${this.iHighLimit},
-                tComment = ${this.tComment},
-                iMeasurementId = ${this.iMeasurementId},
-                iLabCode = ${this.iLabCode}`;
-        } else if (type == "update") {
-            return [`iPatientId = ${this.iPatientId},
-                sMemoCode = ${this.sMemoCode},
-                sMaterial = ${this.sMaterial},
-                sReqDate = ${dateToString(this.sReqDate)}
-                sDescription = ${this.sDescription},
-                sDescriptionShort = ${this.sDescriptionShort},
-                sMVResult = ${this.sMVResult},
-                bNotNormal = ${this.bNotNormal},
-                iLowLimit = ${this.iLowLimit},
-                iHighLimit = ${this.iHighLimit},
-                tComment = ${this.tComment},
-                iLabCode = ${this.iLabCode}`, this.iMeasurementId];
-        } else throw TypeError("Specified type for measurementToSql was not add or update")
+    measurementToSql() {
+        return `(${this.iPatientId},
+            "${this.sMemoCode}",
+            "${this.sMaterial}",
+            "${this.sReqDate}",
+            "${this.sDescription}",
+            "${this.sDescriptionShort}",
+            "${this.sMVResult}",
+            ${this.bNotNormal},
+            "${this.iLowLimit}",
+            "${this.iHighLimit}",
+            "${this.tComment}",
+            "${this.iMeasurementId}",
+            "${this.iLabCode}")`;
     }
 
     getPatientId() { return this.iPatientId; }
@@ -95,7 +77,7 @@ class Measurement {
 }
 
 function parseMeasurement(string) {
-    return new Measurement(string.iPatientId, string.sMemoCode, string.sMaterial, parseDate(string.sReqDate), string.sDescription, string.sDescriptionShort, string.sMVResult, 
+    return new Measurement(string.iPatientId, string.sMemoCode, string.sMaterial, string.sReqDate, string.sDescription, string.sDescriptionShort, string.sMVResult, 
         ParseInt(string.bNotNormal), string.iLowLimit, string.iHighLimit, string.tComment, string.iMeasurementId, string.iLabCode);
 }
 

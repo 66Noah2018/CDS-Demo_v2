@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Proposed functionality OpenMRS demo",
     "scripts": {
-        "test": "echo \"Error: no tests installed\" && exit 1",
+        "test": "node test.js && exit(0)",
         "build": "webpack",
         "watch": "webpack --watch",
         "start": "webpack server --open",
@@ -41,6 +41,7 @@
         "path-browserify": "^1.0.1",
         "prompt": "^1.1.0",
         "raw-loader": "^4.0.2",
+        "request": "^2.88.2",
         "stream-browserify": "^3.0.0",
         "stream-http": "^3.2.0",
         "timers-browserify": "^2.0.12",
