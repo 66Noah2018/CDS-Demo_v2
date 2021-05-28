@@ -12,6 +12,7 @@ const patientRouter = require('./src/routes/patients');
 const episodeRouter = require('./src/routes/episodes');
 const measurementRouter = require('./src/routes/measurements');
 const prescriptionRouter = require('./src/routes/prescriptions');
+const servicesRouter = require('./src/routes/services');
 
 db.executeUpdateScript();
 
@@ -21,6 +22,7 @@ app.use('/episodes', episodeRouter);
 app.use('/measurements', measurementRouter);
 app.use('/patients', patientRouter);
 app.use('/prescriptions', prescriptionRouter);
+app.use('/cds-services', servicesRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
