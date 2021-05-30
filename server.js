@@ -13,7 +13,9 @@ const episodeRouter = require('./src/routes/episodes');
 const measurementRouter = require('./src/routes/measurements');
 const prescriptionRouter = require('./src/routes/prescriptions');
 
-db.executeUpdateScript();
+db.databaseConnection.execute("SELECT database_version FROM database_version", (err, results, fields) => {
+  if (results == undefined || results[0].database_version != 1) db.executeUpdateScript();
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, }));
