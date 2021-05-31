@@ -1,9 +1,6 @@
 const path = require('path');
-<<<<<<< Updated upstream
 const webpack = require('webpack');
-=======
 const htmlWebpackPlugin = require('html-webpack-plugin');
->>>>>>> Stashed changes
 
 module.exports = {
   entry: {
@@ -19,7 +16,6 @@ module.exports = {
   devServer: {
     contentBase: './dist'
   },
-<<<<<<< Updated upstream
   resolve: {
     extensions: ['.ts', '.js'],
     fallback: {
@@ -50,12 +46,7 @@ module.exports = {
   ],
   module: {
     rules: [
-      { test: /\.txt$/i, use: 'raw-loader',}
-    ]
-  }
-=======
-  module: {
-    rules: [
+      { test: /\.txt$/i, use: 'raw-loader',},
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
@@ -71,7 +62,7 @@ module.exports = {
           },
         ],
       },
-    ],
+    ]
   },
   plugins: [
     new htmlWebpackPlugin({
@@ -88,9 +79,6 @@ module.exports = {
       title: 'patientView',
       filename: 'patientView.html',
       template: './src/patientView.html',
-  }),
-],
-  
-    
->>>>>>> Stashed changes
+    }),
+  ],   
 };
