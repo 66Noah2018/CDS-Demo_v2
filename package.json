@@ -21,6 +21,7 @@
     },
     "homepage": "https://github.com/renskelotte48/CDS-Demo_v2#readme",
     "devDependencies": {
+<<<<<<< Updated upstream
         "assert": "^2.0.0",
         "body-parser": "^1.19.0",
         "browserify-zlib": "^0.2.0",
@@ -28,10 +29,14 @@
         "child_process": "^1.0.2",
         "constants-browserify": "^1.0.0",
         "crypto-browserify": "^3.12.0",
+=======
+        "css-loader": "^5.2.4",
+>>>>>>> Stashed changes
         "express": "^4.17.1",
         "file-loader": "^6.2.0",
         "fs": "0.0.1-security",
         "html-webpack-plugin": "^5.3.1",
+<<<<<<< Updated upstream
         "https-browserify": "^1.0.0",
         "inquirer": "^8.0.0",
         "mysql": "^2.18.1",
@@ -48,6 +53,11 @@
         "tls": "0.0.1",
         "util": "^0.12.3",
         "vm-browserify": "^1.1.2",
+=======
+        "path": "^0.12.7",
+        "style-loader": "^2.0.0",
+        "url-loader": "^4.1.1",
+>>>>>>> Stashed changes
         "webpack": "^5.36.2",
         "webpack-cli": "^4.6.0",
         "webpack-dev-middleware": "^4.1.0",

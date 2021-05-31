@@ -3,11 +3,55 @@
 <head>
   <title>App</title>
   <meta charset="utf-8"/>
+  <base href="/">
+  <link href="style.css" rel="stylesheet" type="text/css">
 </head>
+<div id="top-header">
+<header>             
+    <!-- Logo -->
+    <!-- <div id="logo">
+        <img src="src\logo.png" />
+    </div>     -->
+              
+    <!-- Navigation Menu -->
+    <nav>
+      <div id="menu">
+        <ul>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Admin</a></li>
+            <li><a href="#">Registration desk</a></li>
+            <li><a href="#">Log out</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>  
+</header>    
 <body>
-  <h1>Mini React app ❤</h1>
-  <div id="app"></div>
-  <div id="heading"></div>
+  <h1>Logged in as Super User (admin) at Registration desk</h1>
   <script src="bundle.js"></script>
+  <div class="buttongroup">
+    <a href="patientVisit.html">
+      <div class="button">Find patient record</div>
+    </a>
+    <a href="patientView.html">
+      <div class="button">Active visits</div>
+    </a>
+    <a href="">
+      <div class="button">Register a patient</div>
+    </a>
+    <a href="">
+      <div class="button">Capture Vitals</div>
+    </a>
+    <a href="">
+      <div class="button">Reports</div>
+    </a>
+    <a href="">
+      <div class="button">Data Management</div>
+    </a>
+    <a href="">
+      <div class="button">Configure Metadata</div>
+    </a>
+  </div>
+</div>
 </body>
 </html>

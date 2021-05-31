@@ -1,5 +1,9 @@
 const path = require('path');
+<<<<<<< Updated upstream
 const webpack = require('webpack');
+=======
+const htmlWebpackPlugin = require('html-webpack-plugin');
+>>>>>>> Stashed changes
 
 module.exports = {
   entry: {
@@ -15,6 +19,7 @@ module.exports = {
   devServer: {
     contentBase: './dist'
   },
+<<<<<<< Updated upstream
   resolve: {
     extensions: ['.ts', '.js'],
     fallback: {
@@ -48,4 +53,44 @@ module.exports = {
       { test: /\.txt$/i, use: 'raw-loader',}
     ]
   }
+=======
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+        title: 'index2',
+        filename: 'index2.html',
+        template: './src/index.html',
+    }),
+    new htmlWebpackPlugin({
+        title: 'patientVisit',
+        filename: 'patientVisit.html',
+        template: './src/patientVisit.html',
+    }),
+    new htmlWebpackPlugin({
+      title: 'patientView',
+      filename: 'patientView.html',
+      template: './src/patientView.html',
+  }),
+],
+  
+    
+>>>>>>> Stashed changes
 };
