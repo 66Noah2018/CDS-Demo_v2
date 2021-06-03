@@ -7,6 +7,7 @@ const app = express();
 const config = require('./webpack.config.js');
 const compiler = webpack(config);
 const db = require('./src/services/db');
+const populateDb = require('./src/services/populateDb').populateDb;
 
 const patientRouter = require('./src/routes/patients');
 const episodeRouter = require('./src/routes/episodes');
@@ -14,7 +15,10 @@ const measurementRouter = require('./src/routes/measurements');
 const prescriptionRouter = require('./src/routes/prescriptions');
 
 db.databaseConnection.execute("SELECT database_version FROM database_version", (err, results, fields) => {
-  if (results == undefined || results[0].database_version != 1) db.executeUpdateScript();
+  if (results == undefined || results[0].database_version < 1) {
+    db.executeUpdateScript();
+    populateDb();
+  }
 });
 
 app.use(bodyParser.json());

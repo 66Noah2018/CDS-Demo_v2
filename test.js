@@ -4,7 +4,7 @@ const testEpisodeEndpoint = require('./test/episode').testEpisodeEndpoint;
 const testMeasurementEndpoint = require('./test/measurement').testMeasurementEndpoint;
 
 async function testAll() {
-    await testEpisodeEndpoint();
+    // await testEpisodeEndpoint();
     await testMeasurementEndpoint();
     await testPatientEndpoint();
     await testPrescriptionEndpoint();

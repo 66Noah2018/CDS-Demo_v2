@@ -56,7 +56,7 @@ function executeUpdateScript() {
             if (err = 'ER_DUP_KEYNAME') return; // needed because there is no INSERT INDEX IF NOT EXISTS in mysql
             else throw err;
         })
-    })
+    });
 }
 
 module.exports = { executeUpdateScript, databaseConnection }
