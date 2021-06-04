@@ -1,6 +1,6 @@
 require('file-loader?name=[name].[ext]!./index.html');
 import './style.css';
-import { HotModuleReplacementPlugin } from 'webpack';
+import './logo.png';
 
 console.log("SDFJLSFJEKFJS");
 const heading = document.getElementById("heading");
