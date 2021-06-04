@@ -48,6 +48,7 @@
         "timers-browserify": "^2.0.12",
         "tls": "0.0.1",
         "util": "^0.12.3",
+        "uuid": "^8.3.2",
         "vm-browserify": "^1.1.2",
         "path": "^0.12.7",
         "style-loader": "^2.0.0",
