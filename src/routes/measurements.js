@@ -4,7 +4,7 @@ const dbCon = require('../services/db').databaseConnection;
 
 router.get('/:patientId', async function(req, res, next) {
     try {
-        dbCon.execute(`SELECT * FROM measurement_values WHERE iPatientId = ${req.params.patientId}`, function(err, result) {
+        dbCon.execute("SELECT obs_id, person_id, obs.concept_id, obs_datetime, value_numeric, name FROM `obs` INNER JOIN `concept_name` WHERE obs.concept_id = concept_name.concept_id AND person_id = " + req.params.patientId + ";", function(err, result) {
             if (err) throw err;
             res.json(result);
         })
@@ -14,27 +14,14 @@ router.get('/:patientId', async function(req, res, next) {
     }
 });
 
-router.get('/:patientId/:measurementId', async function(req, res, next) {
+router.get('/measurement/:measurementId', async function(req, res, next) {
     try {
-        dbCon.execute(`SELECT * FROM measurement_values WHERE iPatientId = ${req.params.patientId} AND iMeasurementId = ${req.params.measurementId}`, function(err, result) {
+        dbCon.execute("SELECT obs_id, person_id, obs.concept_id, obs_datetime, value_numeric, name FROM `obs` INNER JOIN `concept_name` WHERE obs.concept_id = concept_name.concept_id AND obs_id = " + req.params.measurementId + ";", function(err, result) {
             if (err) throw err;
             res.json(result);
         })
     } catch (err) {
-        console.err(`Error while getting measurements with measurementId ${req.params.measurementId} for patient with patientId ${req.params.patientId}`, err.message);
-        next(err);
-    }
-})
-
-// measurement input for the following function is sql syntax
-router.post('/:measurement', async function(req, res, next) {
-    try {
-        dbCon.execute(`INSERT INTO measurement_values VALUES ${req.params.measurement}`, function(err, result) {
-            if (err) throw err;
-            res.json(result);
-        })
-    } catch (err) {
-        console.error(`Error while adding new measurement `, err.message);
+        console.err(`Error while getting measurements with measurementId ${req.params.measurementId} `, err.message);
         next(err);
     }
 });
