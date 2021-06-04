@@ -7,7 +7,7 @@ router.get('/', async function(req, res, next) {
         dbCon.execute("SELECT person.person_id, gender, birthdate, dead, prefix, given_name, middle_name, family_name_prefix, family_name, family_name_suffix FROM `person` INNER JOIN `person_name` WHERE person.person_id = person_name.person_id AND person.person_id > 8;", function(err, result) {
             if (err) throw err;
             res.json(result);
-            console.log(result)
+            console.log("test")
         })
     } catch (err) {
         console.error(`Error while getting patients `, err.message)
