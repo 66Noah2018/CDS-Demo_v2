@@ -3,14 +3,14 @@ const prescription = require('../src/types/prescription').Prescription;
 const sleep = require('./utils').sleep;
 
 async function testPrescriptionEndpoint() {
-    const testPrescription = new prescription(17, "2016-08-21 14:18:59", 100, "ST", "ACENOCOUMAROL PCH 1MG T POT", null, "2017-08-21 14:18:59", null, null, 0, null, "B01AA07", null, null, null);
+    const testPrescription = new prescription(6, 358, 14, null);
 
-    request.get('http://localhost:3000/prescriptions/17', function(err, response, body) {
+    request.get('http://localhost:3000/prescriptions/14', function(err, response, body) {
         if (err) throw err;
         if (response.statusCode == 200) {
-            console.log('Get all prescriptions for patient 17: OK');
+            console.log('Get all prescriptions for patient 14: OK');
         } else {
-            console.error('ERROR. Get all prescriptions for patient 17 failed with statuscode ' + response.statusCode);
+            console.error('ERROR. Get all prescriptions for patient 14 failed with statuscode ' + response.statusCode);
         }
     })
     
@@ -21,13 +21,24 @@ async function testPrescriptionEndpoint() {
         function(err, response, body) {
             if (err) throw err;
             if (response.statusCode == 200) {
-                console.log('Add prescription for patient 17: OK');
+                console.log('Add prescription for patient 14: OK');
             } else {
-                console.error('ERROR. Add prescription for patient 17 failed with statuscode ' + response.statusCode);
+                console.error('ERROR. Add prescription for patient 14 failed with statuscode ' + response.statusCode);
             }
     })
     
     await sleep(500);
+
+    request.delete('http://localhost:3000/prescriptions/6'),
+        {headers:{"Content-Type": "text/plain"}},
+        function(err, response, body) {
+            if (err) throw err;
+            if (response.statusCode == 200) {
+                console.log('Delete prescription 6: OK');
+            } else {
+                console.error('ERROR. Delete prescription 6 failed with statuscode ' + response.statusCode);
+            }
+        }
 }
 
 module.exports = { testPrescriptionEndpoint };

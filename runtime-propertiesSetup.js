@@ -1,21 +1,22 @@
 const prompt = require('prompt');
 const fs = require('fs');
+
 let properties;
 let questions = {
     properties: {
         databaseUser: {
-            description: "Enter the database user (default = root): ",
+            description: "Enter the database user (default = root)",
             type: 'string',
             default: 'root'
         },
         databasePassword: {
-            description: "Enter the database password (default = ''): ",
+            description: "Enter the database password (default = '')",
             type: 'string',
             hidden: true,
             default: ''
         },
         databasePort: {
-            description: "Enter the localhost port on which MySQL runs (default = 3306): ",
+            description: "Enter the localhost port on which MySQL runs (default = 3306)",
             type: 'integer',
             default: 3306
         }

@@ -42,10 +42,9 @@ function getInitialConnection() {
 }
 
 let databaseConnection = getInitialConnection();
-// databaseConnection.config.namedPlaceholders = true
   
 function readSQLFile() {
-    var txt = fs.readFileSync(__dirname + '/initDatabase.txt', "utf-8");
+    var txt = fs.readFileSync(__dirname + '/initNewDb.txt', "utf-8");
     var queries = txt.split(';');
     return queries;
 }
@@ -53,11 +52,11 @@ function readSQLFile() {
 function executeUpdateScript() {
     const queries = readSQLFile();
     queries.forEach(query => {
-        databaseConnection.execute(query, (err, results, fields) => {
+        databaseConnection.execute(query.trim(), (err, results, fields) => {
             if (err = 'ER_DUP_KEYNAME') return; // needed because there is no INSERT INDEX IF NOT EXISTS in mysql
             else throw err;
         })
-    })
+    });
 }
 
 module.exports = { executeUpdateScript, databaseConnection }
