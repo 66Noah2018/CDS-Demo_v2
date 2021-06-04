@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
 const path = require("path");
 
 router.get('/', async function(req, res, next) {
     try {
-        fs.readdirSync(path.join(__dirname, '..', 'fixtures/'), 'utf-8', function(err, items) {
-            var files = items.map(function(item) {
-                return item.definition;
-            });
+        var services = ['greeter'].map(function(item) {
+            return require(path.join(__dirname, '..', 'fixtures/', item)).definition;
         })
-        res.json(files);
+
+        res.json(services);
+        
     } catch (err) {
         console.error(`Error while getting cds services `, err.message);
         next(err);
@@ -19,10 +18,20 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:name', async function(req, res, next) {
     try{
-        var fixture = require('../fixtures/' + req.params.name);
-        res.json(fixture.payload)
+        var fixture = require(path.join(__dirname, '..', 'fixtures/', req.params.name));
+        res.json(fixture.fixedPayload)
     } catch (err) {
         console.error(`Error while getting service ` + req.params.name + ' ', err.message);
+        next(err);
+    }
+});
+
+router.post('/:name/:data', async function(req, res, next) {
+    try {
+        var fixture = require(path.join(__dirname, '..', 'fixtures/', req.params.name));
+        res.json(fixture.payload(req.params.data));
+    } catch (err) {
+        console.error(`Error while calling service ${req.params.name} ${err.message}`);
         next(err);
     }
 })
