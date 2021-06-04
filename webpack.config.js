@@ -1,9 +1,6 @@
 const path = require('path');
-<<<<<<< Updated upstream
-const webpack = require('webpack');
-=======
+var webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
->>>>>>> Stashed changes
 
 module.exports = {
   entry: {
@@ -19,7 +16,6 @@ module.exports = {
   devServer: {
     contentBase: './dist'
   },
-<<<<<<< Updated upstream
   resolve: {
     extensions: ['.ts', '.js'],
     fallback: {
@@ -46,16 +42,14 @@ module.exports = {
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
       process: 'process/browser',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
     })
   ],
   module: {
     rules: [
-      { test: /\.txt$/i, use: 'raw-loader',}
-    ]
-  }
-=======
-  module: {
-    rules: [
+      { test: /\.txt$/i, use: 'raw-loader',},
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
@@ -66,12 +60,12 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 8192,
+              limit: 8192
             },
           },
         ],
       },
-    ],
+    ]
   },
   plugins: [
     new htmlWebpackPlugin({
@@ -92,5 +86,4 @@ module.exports = {
 ],
   
     
->>>>>>> Stashed changes
 };

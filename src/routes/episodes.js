@@ -7,6 +7,7 @@ router.get('/patient/:patientId', async function(req, res, next) {
         dbCon.execute(`SELECT * FROM episodes WHERE iPatientId = ${req.params.patientId}`, function(err, result) {
             if (err) throw err;
             res.json(result);
+            console.log(result)
         })
     } catch (err) { 
         console.error(`Error while getting episodes `, err.messsage);
