@@ -10,7 +10,6 @@ const db = require('./src/services/db');
 const populateDb = require('./src/services/populateDb').populateDb;
 
 const patientRouter = require('./src/routes/patients');
-const episodeRouter = require('./src/routes/episodes');
 const measurementRouter = require('./src/routes/measurements');
 const prescriptionRouter = require('./src/routes/prescriptions');
 
@@ -23,7 +22,6 @@ db.databaseConnection.execute("SELECT database_version FROM database_version", (
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, }));
-app.use('/episodes', episodeRouter);
 app.use('/measurements', measurementRouter);
 app.use('/patients', patientRouter);
 app.use('/prescriptions', prescriptionRouter);
@@ -37,8 +35,7 @@ app.use((err, req, res, next) => {
   return;
 })
 
-// Tell express to use the webpack-dev-middleware and use the webpack.config.js
-// configuration file as a base.
+// Tell express to use the webpack-dev-middleware and use the webpack.config.js configuration file as a base.
 app.use(
   webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,

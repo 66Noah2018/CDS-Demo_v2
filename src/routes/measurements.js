@@ -24,19 +24,6 @@ router.get('/measurement/:measurementId', async function(req, res, next) {
         console.err(`Error while getting measurements with measurementId ${req.params.measurementId} `, err.message);
         next(err);
     }
-})
-
-// // measurement input for the following function is sql syntax
-// router.post('/:measurement', async function(req, res, next) {
-//     try {
-//         dbCon.execute(`INSERT INTO measurement_values VALUES ${req.params.measurement}`, function(err, result) {
-//             if (err) throw err;
-//             res.json(result);
-//         })
-//     } catch (err) {
-//         console.error(`Error while adding new measurement `, err.message);
-//         next(err);
-//     }
-// });
+});
 
 module.exports = router;
