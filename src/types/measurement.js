@@ -14,10 +14,16 @@ class Measurement {
     getObsDatetime() { return this.obsDatetime; }
     getValueNumeric() { return this.valueNumeric; }
     getName() { return this.name; }    
+
+    toString() {
+        return JSON.stringify({"obs_id": this.obsId, "person_id": this.personId, "concept_id": this.conceptId, 
+            "obs_datetime": this.obsDatetime, "value_numeric": this.valueNumeric, "name": this.name});
+    }
 }
 
-function parseMeasurement(string) {
-    return new Measurement(ParseInt(string.obs_id), ParseInt(string.person_id), ParseInt(string.concept_id), obs_datetime, ParseInt(string.value_numeric), string.name);
+function parseMeasurement(str) {
+    const string = JSON.parse(str);
+    return new Measurement(parseInt(string.obs_id), parseInt(string.person_id), parseInt(string.concept_id), string.obs_datetime, parseInt(string.value_numeric), string.name);
 }
 
 module.exports = {

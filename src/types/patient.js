@@ -22,10 +22,17 @@ class Patient {
     getFamilyNamePrefix() { return this.familyNamePrefix; }
     getFamilyName() { return this.familyName; }
     getFamilyNameSuffix() { return this.familyNameSuffix; }
+
+    toString() {
+        return JSON.stringify({"person_id": this.personId, "gender": this.gender, "birthdate": this.birthdate, "dead": this.dead, 
+            "prefix": this.prefix, "given_name": this.givenName, "middle_name": this.middleName, 
+            "family_name_prefix": this.familyNamePrefix, "family_name": this.familyName, "family_name_suffix": this.familyNameSuffix});
+    }
 }
 
-function parsePatient(string) {
-    return new Patient(ParseInt(string.person_id), string.gender, string.birthdate, string.prefix, string.given_name, string.middle_name, string.family_name_prefix, string.family_name, string.family_name_suffix);
+function parsePatient(str) {
+    const string = JSON.parse(str);
+    return new Patient(parseInt(string.person_id), string.gender, string.birthdate, parseInt(string.dead), string.prefix, string.given_name, string.middle_name, string.family_name_prefix, string.family_name, string.family_name_suffix);
 }
 
 module.exports = {
