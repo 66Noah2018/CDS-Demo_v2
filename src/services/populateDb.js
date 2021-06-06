@@ -1,9 +1,5 @@
-const databaseConnection = require('./db').databaseConnection;
-const uuid = require('uuid');
-
-function getUuid() {
-    return `'${uuid.v4()}'`;
-}
+const getUuid = require('./utils').getUuid;
+const executeQueries = require('./utils').executeQueries;
 
 function populateDb() {
     createPatients();
@@ -111,17 +107,6 @@ function addDrugOrders() {
     ];
 
     executeQueries(queries);
-}
-
-function executeQueries(queries) {
-    queries.forEach(query => {
-        databaseConnection.execute(query.trim(), (err, results, fields) => {
-            if (err) {
-                console.log(query.trim());
-                throw err;
-            }
-        })
-    })
 }
 
 module.exports = {

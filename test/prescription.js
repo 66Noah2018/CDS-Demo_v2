@@ -29,7 +29,7 @@ async function testPrescriptionEndpoint() {
     
     await sleep(500);
 
-    request.delete('http://localhost:3000/prescriptions/6'),
+    request.delete('http://localhost:3000/prescriptions/6',
         {headers:{"Content-Type": "text/plain"}},
         function(err, response, body) {
             if (err) throw err;
@@ -38,7 +38,7 @@ async function testPrescriptionEndpoint() {
             } else {
                 console.error('ERROR. Delete prescription 6 failed with statuscode ' + response.statusCode);
             }
-        }
+    });
 }
 
 module.exports = { testPrescriptionEndpoint };
