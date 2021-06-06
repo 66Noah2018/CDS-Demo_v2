@@ -37,7 +37,8 @@ function appendData(data) {
     //append each person to the page
     for (var i = 0; i < data.length; i++) {
         var div = document.createElement("div");
-        div.innerHTML = 'Name: ' + data[i].person_id + ' ' + data[i].birthdate;
+        div.className = "list-group-item list-group-item-action"
+        div.innerHTML = '<b>Patient ID: </b>' + data[i].person_id + ',<b> Family name: </b>' + data[i].family_name;
         mainContainer.appendChild(div);
     }
 }
