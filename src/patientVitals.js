@@ -5,12 +5,16 @@ console.log(myProp)
 var patientId ="";
 var d =""
 var prescription = ""
+var episodes = ""
+var measurements = ""
 
 patientId = localStorage.getItem("patientID");
 
 console.log("id check ")
 var paragraph = document.getElementById("patID");
 console.log("id check " )
+
+$('#datetimepicker').data("DateTimePicker").FUNCTION()
 
 function httpGet(theUrl)
 {
@@ -55,6 +59,48 @@ function showMed(data) {
     for (var i = 0; i < data.length; i++) {
         var med = document.getElementById("medInfo");
         med.setAttribute('style', 'white-space: pre;');
-        med.textContent += "Name: " + prescription[i].name.toLowerCase() + "\r\n"
+        med.textContent += "Name: " + data[i].name.toLowerCase() + "\r\n"
+    }
+}
+
+//doet het niet! wordt ook niet getest ergens...
+// receiveEpisodes(patientId)
+
+function receiveEpisodes(pat) {
+    console.log("test epi")
+    var epi = httpGet("http://localhost:3000/episodes/patient" + pat)
+    episodes = JSON.parse(epi)
+    console.log("epi "+ epi);
+    showEpisode(episodes)
+}
+
+function showEpisode(data) {
+    for (var i = 0; i < data.length; i++) {
+        var episode = document.getElementById("epiInfo");
+        episode.setAttribute('style', 'white-space: pre;');
+        episode.textContent += "Name: " + data[i].episodeId.toLowerCase() + "\r\n"
+    }
+}
+
+receiveMeasurements(patientId)
+
+function receiveMeasurements(pat) {
+    console.log("test epi")
+    var measure = httpGet("http://localhost:3000/measurements/" + pat)
+    measurements = JSON.parse(measure)
+    console.log("epi "+ measure);
+    showMeasurements(measurements)
+}
+
+function showMeasurements(data) {
+    for (var i = 0; i < data.length; i++) {
+        var measurement = document.getElementById("measureInfo");
+        measurement.setAttribute('style', 'white-space: pre;');
+        measurement.textContent += "Name: " + data[i].name.toLowerCase() + " Value:  " + data[i].value_numeric + "\r\n"
+    }
+    console.log("empty " + data.length)
+    if (data.length == 0) {
+        var empty = document.getElementById("nofound");
+        empty.textContent = "No measurements found"
     }
 }
