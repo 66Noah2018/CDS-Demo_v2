@@ -1,6 +1,4 @@
 require('file-loader?name=[name].[ext]!./patientV.html'); 
-import myProp from './patientOverview';
-console.log(myProp)
 
 var patientId ="";
 var d =""
@@ -102,3 +100,4 @@ function showMeasurements(data) {
         empty.textContent = "No measurements found"
     }
 }
+
