@@ -12,9 +12,6 @@ const populateDb = require('./src/services/populateDb').populateDb;
 const patientRouter = require('./src/routes/patients');
 const measurementRouter = require('./src/routes/measurements');
 const prescriptionRouter = require('./src/routes/prescriptions');
-const servicesRouter = require('./src/routes/services');
-const request = require('request');
-const dbCon = require('./src/services/db').databaseConnection;
 
 db.databaseConnection.execute("SELECT database_version FROM database_version", (err, results, fields) => {
   if (results == undefined || results[0].database_version < 1) {
@@ -28,31 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true, }));
 app.use('/measurements', measurementRouter);
 app.use('/patients', patientRouter);
 app.use('/prescriptions', prescriptionRouter);
-app.use('/cds-services', servicesRouter);
-
-app.get('/drug', async function(req, res, next) {
-  try {
-      dbCon.execute("SELECT concept_id, name FROM drug;", function(err, result) {
-          if (err) throw err;
-          res.json(result);
-      });
-  } catch (err) {
-      console.error(`Error while getting information on all available drugs `, err.message);
-      next(err);
-  }
-});
-
-app.get('/highest_id', async function(req, res, next) {
-  try {
-      dbCon.execute("SELECT max(order_id) FROM orders;", function(err, result) {
-          if (err) throw err;
-          res.json(result);
-      });
-  } catch (err) {
-      console.error(`Error while getting highest order_id `, err.message);
-      next(err);
-  }
-});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -61,7 +33,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({'message': err.message});
 
   return;
-});
+})
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js configuration file as a base.
 app.use(
@@ -73,16 +45,4 @@ app.use(
 // Serve the files on port 3000.
 app.listen(3000, function () {
   console.log('Demo app listening on port 3000!\n');
-});
-
-//test greeter + test example
-request.post('http://localhost:3000/cds-services/greeter/' + JSON.stringify({"givenName": 'test'}),
-  {headers: {"Content-Type": "text/plain"}},
-  function(err, response, body) {
-    if (err) throw err;
-    if (response.statusCode == 200) {
-      console.log(body);
-    } else {
-      console.error('ERROR. Call cds-service greeter failed with statuscode ' + response.statusCode);
-    }
 });

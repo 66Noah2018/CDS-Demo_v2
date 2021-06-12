@@ -85,6 +85,11 @@ module.exports = {
       filename: 'patientView.html',
       template: './src/patientView.html',
   }),
+  new htmlWebpackPlugin({
+    title: 'medicationView',
+    filename: 'medicationView.html',
+    template: './src/medicationView.html',
+}),
 ],
   
     

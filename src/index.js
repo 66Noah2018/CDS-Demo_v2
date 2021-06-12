@@ -1,10 +1,12 @@
 require('file-loader?name=[name].[ext]!./index.html');
 import './style.css';
+var myProp = "test";
+export default myProp;
 
 const heading = document.getElementById("heading");
 var data = "2";
 var patientId = "";
-var myProp = "test";
+
 
 // const getName = () => {
 //     return 'Jim';
@@ -79,27 +81,27 @@ function appendData(data) {
 }
 
 
-function getVitals() {
-    console.log("check "+ this.id)
-    var pat = parseInt(this.id)
-    console.log("check "+ pat)
-    console.log("check hallo")
-    receiveVitals(pat)
-    showPat();
-}
+// function getVitals() {
+//     console.log("check "+ this.id)
+//     var pat = parseInt(this.id)
+//     console.log("check "+ pat)
+//     console.log("check hallo")
+//     receiveVitals(pat)
+//     showPat();
+// }
 
 function receiveVitals(pat) {
     var vitals = httpGet("http://localhost:3000/patients/" + pat)
     const d= JSON.parse(vitals)
     console.log("te "+ vitals)
     patientId = d.person_id;
+    
 }
-
 console.log("komt ie uberhaupt hier dan")
 
 function showPat() {
     console.log("ttt")
-    location.href = 'patientView.html';
+    location.href = 'patientV.html';
     console.log("testttt")
     var paragraph = document.getElementById("patID");
     paragraph.textContent += patientId;
