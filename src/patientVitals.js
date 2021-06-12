@@ -2,15 +2,11 @@ require('file-loader?name=[name].[ext]!./patientV.html');
 import myProp from './patientOverview';
 console.log(myProp)
 
-var patientId;
+var patientId ="";
 var d =""
 var prescription = ""
-// console.log(`User: ${user.getName()}`);
-// import myProp from './index.js';
-// import { verifyPassword} from './index.js'
-console.log("waaaaaaaaaa ik word gek")
-console.log("test : 2");
-// var patient = require('./index.js');
+
+patientId = localStorage.getItem("patientID");
 
 console.log("id check ")
 var paragraph = document.getElementById("patID");
@@ -24,7 +20,7 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
-receiveVitals("14")
+receiveVitals(patientId)
 
 function receiveVitals(pat) {
     var vitals = httpGet("http://localhost:3000/patients/" + pat)
@@ -37,6 +33,7 @@ function receiveVitals(pat) {
 }
 console.log(d[0].gender)
 console.log(document.getElementById("idk"))
+console.log("eeh " + patientId)
 
 paragraph.textContent = "Patient: "+ patientId
 var gen = document.getElementById("genInfo");
@@ -45,7 +42,7 @@ gen.textContent = "Full name: " + d[0].given_name + " " + d[0].family_name + "\r
 gen.textContent += "Gender: " + d[0].gender + "\r\n"
 gen.textContent += "Birthdate: " + d[0].birthdate
 
-receivePrescriptions("14")
+receivePrescriptions(patientId)
 
 function receivePrescriptions(pat) {
     var pres = httpGet("http://localhost:3000/prescriptions/" + pat)

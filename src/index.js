@@ -7,39 +7,18 @@ const heading = document.getElementById("heading");
 var data = "2";
 var patientId = "";
 
-
-// const getName = () => {
-//     return 'Jim';
-//   };
-  
-//   exports.getName = getName;
-
-
-console.log("SDFJLSFJEKFJS");
-console.log("SDFJLSFJEKFJS");
-
-var id = document.getElementById('patID')
-console.log("id = " + id)
-if(id != null) {
-    id.textContent += patientId + "yes";
-}
-console.log("hlallo?")
-
-
+patientId = localStorage.getItem("patientID");
+console.log("hlallo?" + patientId)
 
 function myFunction() {
     console.log("!");
 }
-console.log("komt ie uberhaupt hier dan")
-
 
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
-    // var myArr = xmlHttp.responseText;
-    // console.log(myArr)
     return xmlHttp.responseText;
 }
 
@@ -70,8 +49,10 @@ function appendData(data) {
             console.log("tesklik")
             console.log("check "+ this.id)
             var pat = parseInt(this.id)
+            patientId = pat
             console.log("check "+ pat)
             console.log("check hallo")
+            localStorage.setItem("patientID", pat);
             receiveVitals(pat)
             showPat();
         }
@@ -79,16 +60,6 @@ function appendData(data) {
     }
     console.log("finished")
 }
-
-
-// function getVitals() {
-//     console.log("check "+ this.id)
-//     var pat = parseInt(this.id)
-//     console.log("check "+ pat)
-//     console.log("check hallo")
-//     receiveVitals(pat)
-//     showPat();
-// }
 
 function receiveVitals(pat) {
     var vitals = httpGet("http://localhost:3000/patients/" + pat)
@@ -100,13 +71,14 @@ function receiveVitals(pat) {
 console.log("komt ie uberhaupt hier dan")
 
 function showPat() {
-    console.log("ttt")
+    console.log("ttt: " + patientId)
     location.href = 'patientV.html';
     console.log("testttt")
     var paragraph = document.getElementById("patID");
     paragraph.textContent += patientId;
 }
 
+patientId = localStorage.getItem("patientID");
 
 
 
