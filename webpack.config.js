@@ -4,11 +4,13 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/index.js'
+    index:  './src/index.js',
+    patientOverview: './src/patientOverview.js',
+    patientVitals: './src/patientVitals.js',
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     clean: true,
     publicPath: '/'
   },
