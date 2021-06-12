@@ -14,8 +14,6 @@ console.log("id check ")
 var paragraph = document.getElementById("patID");
 console.log("id check " )
 
-$('#datetimepicker').data("DateTimePicker").FUNCTION()
-
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
