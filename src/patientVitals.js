@@ -40,7 +40,7 @@ var gen = document.getElementById("genInfo");
 gen.setAttribute('style', 'white-space: pre;');
 gen.textContent = "Full name: " + d[0].given_name + " " + d[0].family_name + "\r\n"
 gen.textContent += "Gender: " + d[0].gender + "\r\n"
-gen.textContent += "Birthdate: " + d[0].birthdate
+gen.textContent += "Birthdate: " + d[0].birthdate.substring(0, 10)
 
 receivePrescriptions(patientId)
 
@@ -56,6 +56,10 @@ function showMed(data) {
         var med = document.getElementById("medInfo");
         med.setAttribute('style', 'white-space: pre;');
         med.textContent += "Name: " + data[i].name.toLowerCase() + "\r\n"
+    }
+    if (data.length == 0) {
+        var empty = document.getElementById("noMedfound");
+        empty.textContent = "No prescriptions found"
     }
 }
 

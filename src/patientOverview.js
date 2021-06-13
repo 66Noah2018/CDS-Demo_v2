@@ -55,16 +55,9 @@ function showDrugs(data) {
         container.appendChild(opt);
         console.log("wat is dit "+ data[i].orderId)
         allMedication[data[i].name.toLowerCase()] = new prescription(getId()+1, data[i].concept_id, patient, data[i].name)
-        
-    //     opt.onfocusout = function getMed() {
-    //         console.log("tesklik")
-    //     // var med = document.getElementById("option");
-    //     // med.setAttribute('style', 'white-space: pre;');
-    //     // med.textContent += data[i].name.toLowerCase() + "\r\n"
-    // }
-}
-}
 
+}
+}
 
 getSelectedMedication()
 
@@ -83,6 +76,7 @@ function getSelectedMedication(){
         console.log("ik hoop het " + allMedication[val.value])
 
         httpPost('http://localhost:3000/prescriptions/' + allMedication[val.value].prescriptionToSql())
+        alert("Successfully prescribed " + val.value);
 
     }
 
