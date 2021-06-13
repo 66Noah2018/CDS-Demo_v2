@@ -1,13 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/index.js'
+    index:  './src/index.js',
+    patientOverview: './src/front_end/patientOverview.js',
+    patientVitals: './src/front_end/patientVitals.js',
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     clean: true,
     publicPath: '/'
   },
@@ -41,11 +44,48 @@ module.exports = {
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
       process: 'process/browser',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
     })
   ],
   module: {
     rules: [
-      { test: /\.txt$/i, use: 'raw-loader',}
+      { test: /\.txt$/i, use: 'raw-loader',},
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            },
+          },
+        ],
+      },
     ]
-  }
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+        title: 'index2',
+        filename: 'index2.html',
+        template: './src/front_end/index.html',
+    }),
+    new htmlWebpackPlugin({
+        title: 'patientVisit',
+        filename: 'patientVisit.html',
+        template: './src/front_end/patientVisit.html',
+    }),
+    new htmlWebpackPlugin({
+      title: 'patientView',
+      filename: 'patientView.html',
+      template: './src/front_end/patientView.html',
+  }),
+],
+  
+    
 };
