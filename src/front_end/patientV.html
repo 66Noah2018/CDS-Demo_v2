@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient overview</title>
+  <meta charset="utf-8"/>
+  <base href="/">
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<div id="top-header">
+<header>             
+    <nav>
+      <div id="menu">
+        <ul>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Admin</a></li>
+            <li><a href="#">Registration desk</a></li>
+            <li><a href="#">Log out</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>  
+</header>    
+<body>
+  <div class="row"> 
+    <h1 id = "patID"> </h1>
+  </div>  
+  <div class="card">
+    <div class="card-header">
+      General information
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p id="genInfo"></p>
+      </blockquote>
+    </div>
+  </div>
+  <div class="row"> 
+    <h1 id = "patID"> </h1>
+  </div>  
+  <div class="card">
+    <div class="card-header">
+      Medication
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p id="medInfo"></p>
+        <footer class="blockquote-footer"> <cite title="Source Title" id = "noMedfound"></cite></footer>
+      </blockquote>
+    </div>
+  </div>
+  <div class="row"> 
+    <h1 id = "patID"> </h1>
+  </div>  
+  <div class="card">
+    <div class="card-header">
+        Episodes
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p id="epiInfo"></p>
+        <footer class="blockquote-footer"> <cite title="Source Title">No episodes found</cite></footer>
+      </blockquote>
+    </div>
+  </div>
+  <div class="row"> 
+    <h1 id = "patID"> </h1>
+  </div>  
+  <div class="card">
+    <div class="card-header">
+        Measurements
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p id="measureInfo"></p>
+        <footer class="blockquote-footer"> <cite title="Source Title" id = "nofound"></cite></footer>
+      </blockquote>
+    </div>
+  </div>
+  <a class="btn btn-secondary" href="medicationView.html" role="button">New prescription</a>
+  <script src="patientVitals.bundle.js"></script>
+  <script src="index.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    
+</body>
+</html>
