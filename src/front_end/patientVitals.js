@@ -8,9 +8,7 @@ var measurements = ""
 
 patientId = localStorage.getItem("patientID");
 
-console.log("id check ")
 var paragraph = document.getElementById("patID");
-console.log("id check " )
 
 function httpGet(theUrl)
 {
@@ -25,15 +23,8 @@ receiveVitals(patientId)
 function receiveVitals(pat) {
     var vitals = httpGet("http://localhost:3000/patients/" + pat)
     d = JSON.parse(vitals)
-    console.log("te "+ vitals);
-    console.log(d)
-    patientId = d[0].person_id;
-    console.log("te "+ patientId)
-    
+    patientId = d[0].person_id;    
 }
-console.log(d[0].gender)
-console.log(document.getElementById("idk"))
-console.log("eeh " + patientId)
 
 paragraph.textContent = "Patient: "+ patientId
 var gen = document.getElementById("genInfo");
@@ -47,7 +38,6 @@ receivePrescriptions(patientId)
 function receivePrescriptions(pat) {
     var pres = httpGet("http://localhost:3000/prescriptions/" + pat)
     prescription = JSON.parse(pres)
-    console.log("med "+ pres);
     showMed(prescription)
 }
 
@@ -64,13 +54,9 @@ function showMed(data) {
 }
 
 //doet het niet! wordt ook niet getest ergens...
-// receiveEpisodes(patientId)
-
 function receiveEpisodes(pat) {
-    console.log("test epi")
     var epi = httpGet("http://localhost:3000/episodes/patient" + pat)
     episodes = JSON.parse(epi)
-    console.log("epi "+ epi);
     showEpisode(episodes)
 }
 
@@ -85,10 +71,8 @@ function showEpisode(data) {
 receiveMeasurements(patientId)
 
 function receiveMeasurements(pat) {
-    console.log("test epi")
     var measure = httpGet("http://localhost:3000/measurements/" + pat)
     measurements = JSON.parse(measure)
-    console.log("epi "+ measure);
     showMeasurements(measurements)
 }
 
@@ -98,7 +82,6 @@ function showMeasurements(data) {
         measurement.setAttribute('style', 'white-space: pre;');
         measurement.textContent += "Name: " + data[i].name.toLowerCase() + " Value:  " + data[i].value_numeric + "\r\n"
     }
-    console.log("empty " + data.length)
     if (data.length == 0) {
         var empty = document.getElementById("nofound");
         empty.textContent = "No measurements found"

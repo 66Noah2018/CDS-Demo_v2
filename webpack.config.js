@@ -5,8 +5,8 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     index:  './src/index.js',
-    patientOverview: './src/patientOverview.js',
-    patientVitals: './src/patientVitals.js',
+    patientOverview: './src/front_end/patientOverview.js',
+    patientVitals: './src/front_end/patientVitals.js',
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -73,17 +73,17 @@ module.exports = {
     new htmlWebpackPlugin({
         title: 'index2',
         filename: 'index2.html',
-        template: './src/index.html',
+        template: './src/front_end/index.html',
     }),
     new htmlWebpackPlugin({
         title: 'patientVisit',
         filename: 'patientVisit.html',
-        template: './src/patientVisit.html',
+        template: './src/front_end/patientVisit.html',
     }),
     new htmlWebpackPlugin({
       title: 'patientView',
       filename: 'patientView.html',
-      template: './src/patientView.html',
+      template: './src/front_end/patientView.html',
   }),
 ],
   
