@@ -58,22 +58,7 @@ function showMed(data) {
         empty.textContent = "No prescriptions found"
     }
 }
-
-//doet het niet! wordt ook niet getest ergens...
-function receiveEpisodes(pat) {
-    var epi = httpGet("http://localhost:3000/episodes/patient" + pat)
-    episodes = JSON.parse(epi)
-    showEpisode(episodes)
-}
-
-function showEpisode(data) {
-    for (var i = 0; i < data.length; i++) {
-        var episode = document.getElementById("epiInfo");
-        episode.setAttribute('style', 'white-space: pre;');
-        episode.textContent += "Name: " + data[i].episodeId.toLowerCase() + "\r\n"
-    }
-}
-
+ 
 function showMeasurements(data) {
     for (var i = 0; i < data.length; i++) {
         var measurement = document.getElementById("measureInfo");
