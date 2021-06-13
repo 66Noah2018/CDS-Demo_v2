@@ -3,7 +3,7 @@ const prescription = require('.././types/prescription').Prescription;
 
 var drugs = ""
 var allMedication = []
-var highest_id
+var highest_id = -1
 
 var patient = localStorage.getItem("patientID");
 
@@ -24,15 +24,14 @@ function httpPost(theUrl)
     xmlHttp.send( null );
 }
 
-receiveDrugs()
-
 function receiveDrugs() {
     var drug = httpGet("http://localhost:3000/drug")
     drugs = JSON.parse(drug)
     showDrugs(drugs)
 }
+receiveDrugs()
 
-function getId() {
+function getHighestId() {
     var highest = httpGet("http://localhost:3000/highest_id")
     highest_id = JSON.parse(highest)
     return parseInt(highest_id[0]["max(order_id)"])
@@ -46,12 +45,10 @@ function showDrugs(data) {
         opt.value = data[i].name.toLowerCase();
         opt.setAttribute("title", ""+i);
         container.appendChild(opt);
-        allMedication[data[i].name.toLowerCase()] = new prescription(getId()+1, data[i].concept_id, patient, data[i].name)
+        allMedication[data[i].name.toLowerCase()] = new prescription(getHighestId()+1, data[i].concept_id, patient, data[i].name)
 
 }
 }
-
-getSelectedMedication()
 
 function getSelectedMedication(){
     var container = document.getElementById("but");
@@ -64,8 +61,8 @@ function getSelectedMedication(){
     button.onclick = function getMedication() {
         var val = document.getElementById("exampleDataList")
         httpPost('http://localhost:3000/prescriptions/' + allMedication[val.value].prescriptionToSql())
-        alert("Successfully prescribed " + val.value);
+        alert("Successfully prescribed " + val.value + " for patient " + patient);
     }
 }
 
-
+getSelectedMedication()

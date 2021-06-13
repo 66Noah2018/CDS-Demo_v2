@@ -15,7 +15,7 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
-document.getElementById('test').onClick = getAllData()
+document.getElementById('patdata').onClick = getAllData()
 
 function getAllData() {
     data = httpGet("http://localhost:3000/patients")
@@ -26,7 +26,6 @@ function getAllData() {
     
 function appendData(data) {
     var mainContainer = document.getElementById("patientData");
-    console.log(mainContainer)
     //append each person to the page
     for (var i = 0; i < data.length; i++) {
         var div = document.createElement("div");
