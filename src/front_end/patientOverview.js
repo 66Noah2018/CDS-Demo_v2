@@ -1,5 +1,6 @@
 require('file-loader?name=[name].[ext]!./medicationView.html'); 
 const prescription = require('.././types/prescription').Prescription;
+const getUuid = require('../services/utils').getUuid;
 
 var drugs = ""
 var allMedication = []
@@ -69,7 +70,12 @@ function getSelectedMedication(){
             return drug.name.toLowerCase() == val.toLowerCase(); });
         const latestPlateletCount = getLatestPlateletCount();
         const nsaidCard = JSON.parse(httpPost('http://localhost:3000/cds-services/nsaid/' + JSON.stringify({
-            "concept_id": selectedDrug.concept_id, "latest_platelet_count": latestPlateletCount
+            "hook": "medication-prescribe",
+            "hookInstance": getUuid(),
+            "context" : {
+                "concept_id": selectedDrug.concept_id, 
+                "latest_platelet_count": latestPlateletCount
+            }
         }))).cards[0]; 
         if (nsaidCard) {
             document.getElementById("nsaidModalTitle").textContent = nsaidCard.summary;

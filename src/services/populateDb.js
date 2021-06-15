@@ -1,9 +1,5 @@
 const databaseConnection = require('./db').databaseConnection;
-const uuid = require('uuid');
-
-function getUuid() {
-    return `'${uuid.v4()}'`;
-}
+const getUuid = require('./utils').getUuid;
 
 function populateDb() {
     createPatients();

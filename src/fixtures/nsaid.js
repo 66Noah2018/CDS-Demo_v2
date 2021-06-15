@@ -20,8 +20,8 @@ function plateletCountNormal(plateletCount) {
 }
 
 function payload(data) {
-    // expected format: JSON with fields concept_id from drug and latest platelet value (latest_platelet_count)
-    const PARSED_DATA = JSON.parse(data);
+    // expected format context: JSON with fields concept_id from drug and latest platelet value (latest_platelet_count)
+    const PARSED_DATA = JSON.parse(data).context;
     if (PARSED_DATA.latest_platelet_count != -1 && plateletCountNormal(PARSED_DATA.latest_platelet_count) == -1 && NSAIDS.includes(PARSED_DATA.concept_id)) {
         return { cards: [getCard(PARSED_DATA.latest_platelet_count), PARSED_DATA] };
     } else return { cards: [] };
@@ -31,10 +31,9 @@ module.exports = {
     definition: {
         id: 'nsaid',
         name: 'Platelet NSAID interaction check',
-        hook: 'nsaid',
+        hook: 'medication-prescribe',
         description: 'Checks the latest platelet measurement for non-normal values and warns prescriber of this when prescribing an NSAID',
         prefetch: {
-            patient: 'patients/{{patient_id}}',
             drug: 'prescriptions/{{drug_id}}',
             latest_platelet_count: 'measurements/{{patient_id}}/platelets'
         }
