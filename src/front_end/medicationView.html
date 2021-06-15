@@ -28,13 +28,27 @@
   <div class="col-sm-7 bg-light p-3 border">
     <label for="exampleDataList" class="form-label">Search for medication</label>
     <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-    <datalist id="datalistOptions">
-    </datalist>
-    </div>
-</div>
-<div id="but">
-</div>
+    <datalist id="datalistOptions"></datalist>
+  </div>
+  <div id="but"></div>
   
+  <div id="nsaidModal" class="modal warning">
+    <div class="modal-content">
+      <div id="warningModalUpper" class="modal-warning-banner">
+        <div id="nsaidModalTitle" class="modal-warning-title"></div>
+        <span id="closeModalNsaid" class="close">&times;</span>
+      </div>
+      <p id="nsaidModalText" class="warning-modal-text"></p>
+      <p id="cancelContinueText">Do you want to continue?</p>
+      <div id="cancelContinue" class="cancel-continue-warning-modal">
+        <button id="buttonContinue" name="continue" type="submit" class="btn btn-secondary">Continue</button>
+        <button id="buttonCancel" name="cancel" type="submit" class="btn btn-secondary">Cancel</button>
+      </div>
+      <div id="warningModelLower" class="modal-warning-banner">
+        <div id="nsaidModalSource" class="modal-warning-source">test</div>
+      </div>
+    </div>
+  </div>
 
   <script src="patientOverview.bundle.js"></script>
   <script src="index.bundle.js"></script>
