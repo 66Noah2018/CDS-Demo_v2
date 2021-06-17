@@ -7,6 +7,7 @@ module.exports = {
     index:  './src/index.js',
     patientOverview: './src/front_end/patientOverview.js',
     patientVitals: './src/front_end/patientVitals.js',
+    serotoninCheck: './src/front_end/serotoninCheck.js'
   },
   output: {
     path: path.resolve(__dirname, "dist"),

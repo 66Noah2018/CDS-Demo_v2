@@ -163,7 +163,8 @@ h1{
     display: flex;
   }
 
-  .modal-warning-title {
+  .modal-warning-title,
+  .modal-critical-title {
     height: fit-content;
     width: fit-content;
     margin-right: auto;
@@ -175,17 +176,10 @@ h1{
   }
 
   .modal-critical-title {
-    height: fit-content;
-    width: fit-content;
-    margin-right: auto;
-    margin-left: auto;
-    font-weight: bolder;
-    line-height: 30px;
-    text-align: center;
-    font-size: large;
     text-transform: uppercase;
   }
 
-  .modal-warning-source {
+  .modal-warning-source,
+  .modal-critical-source {
     line-height: 40px;
   }
