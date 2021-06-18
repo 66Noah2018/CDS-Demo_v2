@@ -2,7 +2,7 @@ const SSRI_SNRI = [170000, 170001, 170002, 170003, 170004, 170005, 170006, 17000
 const DONT_COMBINE_WITH = [358];
 const parsePrescription = require('../types/prescription').parsePrescription;
 
-function getCard(ssriSnriPrescriptions, dontCombineWithPrescriptions) { //edit
+function getCard(ssriSnriPrescriptions, dontCombineWithPrescriptions) {
     return {
         summary: `Risk for serotonin syndrome!`,
         detail: `This patient is using the following SSRIs and/or SNRIs in combination with ${dontCombineWithPrescriptions[0]}: ${ssriSnriPrescriptions.join(', ')}. This combination could lead to serotonin syndrom and possibly death!`,
