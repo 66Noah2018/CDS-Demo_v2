@@ -1,5 +1,6 @@
 require('file-loader?name=[name].[ext]!./medicationView.html'); 
 const prescription = require('.././types/prescription').Prescription;
+import '.././style.css';
 
 var drugs = ""
 var allMedication = []
