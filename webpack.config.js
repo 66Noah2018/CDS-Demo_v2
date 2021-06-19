@@ -7,7 +7,6 @@ module.exports = {
     index:  './src/index.js',
     patientOverview: './src/front_end/patientOverview.js',
     patientVitals: './src/front_end/patientVitals.js',
-    serotoninCheck: './src/front_end/serotoninCheck.js',
     home: './src/front_end/home.js'
   },
   output: {
