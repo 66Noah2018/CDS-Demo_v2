@@ -1,5 +1,6 @@
 const databaseConnection = require('./db').databaseConnection;
 const getUuid = require('./utils').getUuid;
+const executeQueries = require('./utils').executeQueries;
 
 function populateDb() {
     createPatients();
@@ -37,7 +38,7 @@ function createPatients() {
         "INSERT INTO `person_name` VALUES (14, 1, 14, NULL, 'Janneke', NULL, NULL, 'Sloot', NULL, NULL, NULL, 1, '2021-06-01 14:46:00', 0, NULL, NULL, NULL, NULL, NULL, " + getUuid() + ");"
     ];
 
-    executeQueries(queries);
+    executeQueries(queries, databaseConnection);
 }
 
 function addConcepts() {
@@ -63,7 +64,7 @@ function addConcepts() {
         "INSERT INTO `concept_name` VALUES (170008, 170008, 'Venlafaxine', 'en', 0, 1, '2021-06-03 09:31:00', NULL, 0, 0, NULL, NULL, " + getUuid() + ", NULL, 0);"
     ];
 
-    executeQueries(queries);
+    executeQueries(queries, databaseConnection);
 }
 
 function addDrugs() {
@@ -90,7 +91,7 @@ function addDrugs() {
         "INSERT INTO `drug` VALUES (31, 358, 'Dextromethorphan', 0, NULL, NULL, NULL, NULL, 1, '2021-06-03 09:45:00', 0, NULL, NULL, NULL, NULL, NULL, " + getUuid() + ", NULL, NULL);"
     ];
 
-    executeQueries(queries);
+    executeQueries(queries, databaseConnection);
 }
 
 function addObservations() {
@@ -98,7 +99,7 @@ function addObservations() {
         "INSERT INTO `obs` VALUES (1, 13, 729, NULL, NULL, '2021-06-01 13:13:00', 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 90000, NULL, NULL, NULL, '', 1, '2021-06-01 13:37:00', 0, NULL, NULL, NULL, " + getUuid() + ", NULL, NULL, 'FINAL', NULL);"
     ];
 
-    executeQueries(queries);
+    executeQueries(queries, databaseConnection);
 }
 
 function addDrugOrders() {
@@ -106,18 +107,7 @@ function addDrugOrders() {
         "INSERT INTO `orders` VALUES (5, 2, 358, 3, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2021-06-03 09:50:00', 0, NULL, NULL, NULL, 14, NULL, " + getUuid() + ", 'ROUTINE', 'ORD-5', NULL, 'NEW', NULL, 1, NULL, NULL, NULL, NULL, NULL);"
     ];
 
-    executeQueries(queries);
-}
-
-function executeQueries(queries) {
-    queries.forEach(query => {
-        databaseConnection.execute(query.trim(), (err, results, fields) => {
-            if (err) {
-                console.log(query.trim());
-                throw err;
-            }
-        })
-    })
+    executeQueries(queries, databaseConnection);
 }
 
 module.exports = {

@@ -22,8 +22,9 @@ function plateletCountNormal(plateletCount) {
 function payload(data) {
     // expected format context: JSON with fields concept_id from drug and latest platelet value (latest_platelet_count)
     const PARSED_DATA = JSON.parse(data).context;
-    if (PARSED_DATA.latest_platelet_count != -1 && plateletCountNormal(PARSED_DATA.latest_platelet_count) == -1 && NSAIDS.includes(PARSED_DATA.concept_id)) {
-        return { cards: [getCard(PARSED_DATA.latest_platelet_count), PARSED_DATA] };
+    const PLATELET_COUNT = PARSED_DATA.latest_platelet_count;
+    if (PLATELET_COUNT != -1 && plateletCountNormal(PLATELET_COUNT) == -1 && NSAIDS.includes(PARSED_DATA.concept_id)) {
+        return { cards: [getCard(PLATELET_COUNT), PARSED_DATA] };
     } else return { cards: [] };
 }
 

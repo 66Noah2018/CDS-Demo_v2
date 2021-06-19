@@ -46,18 +46,21 @@ function checkSerotoninSyndrome() {
                 cardPatients.push(patient.person_id);
             }
         });
-        const serotoninCard = cards.find(card => card[0])[0];
-        if (serotoninCard) {
-            const patientId = cardPatients[0];
-            document.getElementById("serotoninModalTitle").textContent = serotoninCard.summary;
-            document.getElementById("serotoninModalText").textContent = serotoninCard.detail;
-            document.getElementById("serotoninModalSource").innerHTML = `<a href="${serotoninCard.source.url}">${serotoninCard.source.label}</a>`;
-            serotoninModal.style.display = "block";
-            btnGoToPatient.onclick = function() {
-                localStorage.setItem("patientID", patientId);
-                window.location.href = "patientV.html";
+        try {
+            const serotoninCard = cards.find(card => card[0])[0];
+            if (serotoninCard) {
+                const patientId = cardPatients[0];
+                document.getElementById("serotoninModalTitle").textContent = serotoninCard.summary;
+                document.getElementById("serotoninModalText").textContent = serotoninCard.detail;
+                document.getElementById("serotoninModalSource").innerHTML = `<a href="${serotoninCard.source.url}">${serotoninCard.source.label}</a>`;
+                serotoninModal.style.display = "block";
+                btnGoToPatient.onclick = function() {
+                    localStorage.setItem("patientID", patientId);
+                    window.location.href = "patientV.html";
+                }
             }
-        }
+        } catch { }
+        
     }
 }
 

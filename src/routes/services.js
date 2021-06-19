@@ -7,7 +7,6 @@ router.get('/', async function(req, res, next) {
         var services = ['greeter', 'nsaid', 'serotoninSyndrome'].map(function(item) {
             return require(path.join(__dirname, '..', 'fixtures/', item)).definition;
         })
-
         res.json(services);
         
     } catch (err) {

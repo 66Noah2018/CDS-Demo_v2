@@ -8,4 +8,15 @@ function getUuid() {
     return `'${uuid.v4()}'`;
 }
 
-module.exports = { getDateNow, getUuid }
+function executeQueries(queries, databaseConnection) {
+    queries.forEach(query => {
+        databaseConnection.execute(query.trim(), (err, results, fields) => {
+            if (err) {
+                console.log(query.trim());
+                throw err;
+            }
+        })
+    })
+}
+
+module.exports = { getDateNow, getUuid, executeQueries }
