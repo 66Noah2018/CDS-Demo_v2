@@ -87,6 +87,12 @@ function getLatestMeasurement(pat){
     return latest_measure[0];
 }
 // ? latest_measure[0].obs_datetime : -1
+var measurementModal = document.getElementById("measurementModal")
+var spanWarning = document.getElementById("closeModelMeasurement")
+// spanWarning.onclick = function(){measurementModal.style.disp="none"}
+// window.onclick = function(event){
+//     if(event.target == measurementModal) {measurementModal.style.display = "none"}
+// }
 
 function receiveMeasurements(pat) {
     var measure = httpGet("http://localhost:3000/measurements/" + pat)
@@ -102,12 +108,12 @@ function receiveMeasurements(pat) {
             "patientId": pat
         }
     }))).cards[0]
-    console.log("check " + measurementCard.cards)
+    console.log("check " + measurementCard)
     if(measurementCard) {
         document.getElementById("measurementModalTitle").textContent = measurementCard.summary;
         document.getElementById("measurementModalText").textContent = measurementCard.detail;
-        document.getElementById("measurementModalSource").innerHTML = measurementCard.source.label;
-        measurementModal.style.display = "block";
+        document.getElementById("measurementModalSource").textContent = measurementCard.source.label;
+        // measurementModal.style.display = "inline-flex";
     }
     showMeasurements(measurements)
 }
@@ -115,12 +121,6 @@ receiveMeasurements(patientId)
 
 
 
-var measurementModal = document.getElementById("measurementModal")
-var spanWarning = document.getElementById("closeModelMeasurement")
-spanWarning.onclick = function(){measurementModal.style.disp="none"}
-window.onclick = function(event){
-    if(event.target == measurementModal) {measurementModal.style.display = "none"}
-}
 
 
 

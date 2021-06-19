@@ -12,9 +12,9 @@ function getCard(last_measurement, patientId) {
 
 function payload(data) {
     const PARSED_DATA = JSON.parse(data).context;
-    console.log("test "+PARSED_DATA)
+    console.log("test "+PARSED_DATA.last_measurement)
     if (PARSED_DATA.obs_datetime != -1) {
-        return { cards: [getCard(PARSED_DATA.obs_datetime, PARSED_DATA.person_id), PARSED_DATA] };
+        return { cards: [getCard(PARSED_DATA.last_measurement.obs_datetime, PARSED_DATA.patientId), PARSED_DATA] };
     } else return { cards: [] };
 }
 
