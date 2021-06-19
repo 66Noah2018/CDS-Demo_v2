@@ -1,4 +1,6 @@
 require('file-loader?name=[name].[ext]!./patientV.html'); 
+const getUuid = require('../services/utils').getUuid;
+import '.././style.css';
 
 var patientId ="";
 var d =""
@@ -14,6 +16,14 @@ function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+function httpPost(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "POST", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
@@ -39,8 +49,8 @@ gen.textContent = "Full name: " + d[0].given_name + " " + prefix + d[0].family_n
 gen.textContent += "Gender: " + d[0].gender + "\r\n"
 gen.textContent += "Birthdate: " + d[0].birthdate.substring(0, 10)
 
-function receivePrescriptions(pat) {
-    var pres = httpGet("http://localhost:3000/prescriptions/" + pat)
+function receivePrescriptions(patientId) {
+    var pres = httpGet("http://localhost:3000/prescriptions/" + patientId)
     prescription = JSON.parse(pres)
     showMed(prescription)
 }
@@ -71,12 +81,46 @@ function showMeasurements(data) {
     }
 }
 
+function getLatestMeasurement(pat){
+    var latest_measure = JSON.parse(httpGet("http://localhost:3000/measurements/" + pat))
+    console.log("teessst " + latest_measure[0].obs_datetime)
+    return latest_measure[0];
+}
+// ? latest_measure[0].obs_datetime : -1
+
 function receiveMeasurements(pat) {
     var measure = httpGet("http://localhost:3000/measurements/" + pat)
     measurements = JSON.parse(measure)
+    const latestmeasurement = getLatestMeasurement(pat)
+    console.log("tes "+ latestmeasurement)
+    localStorage.setItem('measurements', JSON.stringify(measurements))
+    const measurementCard = JSON.parse(httpPost('http://localhost:3000/cds-services/lastmeasurement/' + JSON.stringify({
+        "hook": "measurement-view",
+        "hookInstance": getUuid(),
+        "context": {
+            "last_measurement": latestmeasurement,
+            "patientId": pat
+        }
+    }))).cards[0]
+    console.log("check " + measurementCard.cards)
+    if(measurementCard) {
+        document.getElementById("measurementModalTitle").textContent = measurementCard.summary;
+        document.getElementById("measurementModalText").textContent = measurementCard.detail;
+        document.getElementById("measurementModalSource").innerHTML = measurementCard.source.label;
+        measurementModal.style.display = "block";
+    }
     showMeasurements(measurements)
 }
 receiveMeasurements(patientId)
+
+
+
+var measurementModal = document.getElementById("measurementModal")
+var spanWarning = document.getElementById("closeModelMeasurement")
+spanWarning.onclick = function(){measurementModal.style.disp="none"}
+window.onclick = function(event){
+    if(event.target == measurementModal) {measurementModal.style.display = "none"}
+}
 
 
 
