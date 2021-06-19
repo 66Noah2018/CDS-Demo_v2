@@ -1,6 +1,7 @@
 require('file-loader?name=[name].[ext]!./medicationView.html'); 
 const prescription = require('.././types/prescription').Prescription;
 const getUuid = require('../services/utils').getUuid;
+import '.././style.css';
 
 var drugs = ""
 var allMedication = []
