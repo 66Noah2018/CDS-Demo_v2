@@ -6,8 +6,6 @@ var patientId = "";
 
 patientId = localStorage.getItem("patientID");
 
-console.log("test " + document.getElementById("menu"))
-
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
