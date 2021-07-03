@@ -74,6 +74,7 @@ function showMeasurements(data) {
 function receiveMeasurements(pat) {
     var measure = httpGet("http://localhost:3000/measurements/" + pat)
     measurements = JSON.parse(measure)
+    localStorage.setItem('measurements', JSON.stringify(measurements))
     showMeasurements(measurements)
 }
 receiveMeasurements(patientId)

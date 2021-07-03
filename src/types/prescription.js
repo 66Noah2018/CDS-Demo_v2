@@ -17,6 +17,11 @@ class Prescription {
     toString() {
         return JSON.stringify({"order_id": this.orderId, "concept_id": this.conceptId, "patient_id": this.patientId, "name": this.name});
     }
+
+    getOrderId() { return this.orderId; }
+    getConceptId() { return this.conceptId; }
+    getPatientId() { return this.patientId; }
+    getName() { return this.name; }
 }
 
 function parsePrescription(str) {
