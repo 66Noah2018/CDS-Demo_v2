@@ -74,15 +74,3 @@ app.use(
 app.listen(3000, function () {
   console.log('Demo app listening on port 3000!\n');
 });
-
-//test greeter + test example
-request.post('http://localhost:3000/cds-services/greeter/' + JSON.stringify({"givenName": 'test'}),
-  {headers: {"Content-Type": "text/plain"}},
-  function(err, response, body) {
-    if (err) throw err;
-    if (response.statusCode == 200) {
-      console.log(body);
-    } else {
-      console.error('ERROR. Call cds-service greeter failed with statuscode ' + response.statusCode);
-    }
-});

@@ -1,5 +1,5 @@
 function payload(patient) {
-    var summary_payload = `Welcome ${JSON.parse(patient).givenName}`;
+    var summary_payload = `Welcome ${JSON.parse(patient).context.givenName}`;
     return {
         cards: [{
             summary: summary_payload,

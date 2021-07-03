@@ -3,7 +3,7 @@ const prescription = require('../src/types/prescription').Prescription;
 const sleep = require('./utils').sleep;
 
 async function testPrescriptionEndpoint() {
-    const testPrescription = new prescription(6, 358, 14, null);
+    const testPrescription = new prescription(999, 358, 14, null);
 
     request.get('http://localhost:3000/prescriptions/14', function(err, response, body) {
         if (err) throw err;
@@ -29,14 +29,14 @@ async function testPrescriptionEndpoint() {
     
     await sleep(500);
 
-    request.delete('http://localhost:3000/prescriptions/6'),
+    request.delete('http://localhost:3000/prescriptions/999'),
         {headers:{"Content-Type": "text/plain"}},
         function(err, response, body) {
             if (err) throw err;
             if (response.statusCode == 200) {
-                console.log('Delete prescription 6: OK');
+                console.log('Delete prescription 999: OK');
             } else {
-                console.error('ERROR. Delete prescription 6 failed with statuscode ' + response.statusCode);
+                console.error('ERROR. Delete prescription 999 failed with statuscode ' + response.statusCode);
             }
         }
 }

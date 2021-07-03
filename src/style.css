@@ -111,10 +111,9 @@ h1{
     text-decoration: none;
 }
 
-
 .modal {
-    /* display: none; */
-    /* position: flex;
+    display: none;
+    position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
@@ -122,7 +121,7 @@ h1{
     height: 100%;
     overflow: auto;
     background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0,4); */
+    background-color: rgba(0,0,0,0,4);
   }
 
   .modal-content {
@@ -150,17 +149,21 @@ h1{
     margin-right: 5px;
   }
 
-  .modal-information-banner {
-    background-color:lightgray;
+  .modal-warning-banner {
+    background-color: rgb(255, 121, 0);
     width: 100%;
     height: fit-content;
     display: flex;
   }
 
-  
+  .modal-critical-banner {
+    background-color: #FF0000;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+  }
 
   .modal-warning-title,
-  .model-information-title,
   .modal-critical-title {
     height: fit-content;
     width: fit-content;
@@ -172,8 +175,11 @@ h1{
     font-size: large;
   }
 
+  .modal-critical-title {
+    text-transform: uppercase;
+  }
+
   .modal-warning-source,
-  .model-information-source,
   .modal-critical-source {
     line-height: 40px;
   }

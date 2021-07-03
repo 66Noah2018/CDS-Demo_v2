@@ -32,7 +32,8 @@ class Patient {
 
 function parsePatient(str) {
     const string = JSON.parse(str);
-    return new Patient(parseInt(string.person_id), string.gender, string.birthdate, parseInt(string.dead), string.prefix, string.given_name, string.middle_name, string.family_name_prefix, string.family_name, string.family_name_suffix);
+    return new Patient(parseInt(string.person_id), string.gender, string.birthdate, parseInt(string.dead), string.prefix, string.given_name, 
+        string.middle_name, string.family_name_prefix, string.family_name, string.family_name_suffix);
 }
 
 module.exports = {
