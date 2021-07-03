@@ -2,7 +2,7 @@
 function getCard(last_measurement, patientId) {
     return {
         summary: `Last measurement for patient ${patientId}`,
-        detail: `This patient's last measurement was on date ${last_measurement}`,
+        detail: `This patient's last measurement was on ${last_measurement.substring(0, 10)}`,
         indicator: 'info',
         source: {
             label: "Patient last measurement",
