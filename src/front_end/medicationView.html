@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Medication overview</title>
+  <meta charset="utf-8"/>
+  <base href="/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<div id="top-header">
+<header>             
+    <nav>
+      <div id="menu">
+        <ul>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Admin</a></li>
+            <li><a href="#">Registration desk</a></li>
+            <li><a href="#">Log out</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>  
+</header>    
+<body>
+  <div class="row"> 
+    <h1 id = "patID"> </h1>
+  </div>  
+  <div class="col-sm-7 bg-light p-3 border">
+    <label for="exampleDataList" class="form-label">Search for medication</label>
+    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+    <datalist id="datalistOptions"></datalist>
+  </div>
+  <div id="but"></div>
+  
+  <div id="nsaidModal" class="modal warning">
+    <div class="modal-content">
+      <div id="warningModalUpper" class="modal-warning-banner">
+        <div id="nsaidModalTitle" class="modal-warning-title"></div>
+        <span id="closeModalNsaid" class="close">&times;</span>
+      </div>
+      <p id="nsaidModalText" class="warning-modal-text"></p>
+      <p id="cancelContinueText">Do you want to continue?</p>
+      <div id="cancelContinue" class="cancel-continue-warning-modal">
+        <button id="buttonContinue" name="continue" type="submit" class="btn btn-secondary">Continue</button>
+        <button id="buttonCancel" name="cancel" type="submit" class="btn btn-secondary">Cancel</button>
+      </div>
+      <div id="warningModelLower" class="modal-warning-banner">
+        <div id="nsaidModalSource" class="modal-warning-source">test</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="patientOverview.bundle.js"></script>
+  <script src="index.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    
+</body>
+</html>

@@ -1,0 +1,66 @@
+{
+    "name": "CDS-Demo_v2",
+    "version": "1.0.0",
+    "description": "Proposed functionality OpenMRS demo",
+    "scripts": {
+        "test": "node test.js && exit(0)",
+        "build": "webpack",
+        "watch": "webpack --watch",
+        "start": "webpack server --open",
+        "server": "node server.js",
+        "setup": "node runtime-propertiesSetup.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/renskelotte48/CDS-Demo_v2.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/renskelotte48/CDS-Demo_v2/issues"
+    },
+    "homepage": "https://github.com/renskelotte48/CDS-Demo_v2#readme",
+    "devDependencies": {
+        "assert": "^2.0.0",
+        "body-parser": "^1.19.0",
+        "browserify-zlib": "^0.2.0",
+        "buffer": "^6.0.3",
+        "child_process": "^1.0.2",
+        "constants-browserify": "^1.0.0",
+        "crypto-browserify": "^3.12.0",
+        "css-loader": "^5.2.4",
+        "exports-loader": "^3.0.0",
+        "express": "^4.17.1",
+        "file-loader": "^6.2.0",
+        "fs": "0.0.1-security",
+        "html-webpack-plugin": "^5.3.1",
+        "https-browserify": "^1.0.0",
+        "inquirer": "^8.0.0",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.2.5",
+        "net": "^1.0.2",
+        "os-browserify": "^0.3.0",
+        "path": "^0.12.7",
+        "path-browserify": "^1.0.1",
+        "prompt": "^1.1.0",
+        "raw-loader": "^4.0.2",
+        "request": "^2.88.2",
+        "stream-browserify": "^3.0.0",
+        "stream-http": "^3.2.0",
+        "style-loader": "^2.0.0",
+        "timers-browserify": "^2.0.12",
+        "tls": "0.0.1",
+        "url-loader": "^4.1.1",
+        "util": "^0.12.3",
+        "uuid": "^8.3.2",
+        "vm-browserify": "^1.1.2",
+        "webpack": "^5.36.2",
+        "webpack-cli": "^4.6.0",
+        "webpack-dev-middleware": "^4.1.0",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "dependencies": {
+        "browserify": "^17.0.0",
+        "jquery": "^3.6.0"
+    }
+}
