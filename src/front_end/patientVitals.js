@@ -83,22 +83,18 @@ function showMeasurements(data) {
 
 function getLatestMeasurement(pat){
     var latest_measure = JSON.parse(httpGet("http://localhost:3000/measurements/" + pat))
-    console.log("teessst " + latest_measure[0].obs_datetime)
-    return latest_measure[0];
+    if(latest_measure[0] == undefined) {
+        return -1;
+    }
+    else {
+        return latest_measure[0];
+    }
 }
-// ? latest_measure[0].obs_datetime : -1
-var measurementModal = document.getElementById("measurementModal")
-var spanWarning = document.getElementById("closeModelMeasurement")
-// spanWarning.onclick = function(){measurementModal.style.disp="none"}
-// window.onclick = function(event){
-//     if(event.target == measurementModal) {measurementModal.style.display = "none"}
-// }
 
 function receiveMeasurements(pat) {
     var measure = httpGet("http://localhost:3000/measurements/" + pat)
     measurements = JSON.parse(measure)
     const latestmeasurement = getLatestMeasurement(pat)
-    console.log("tes "+ latestmeasurement)
     localStorage.setItem('measurements', JSON.stringify(measurements))
     const measurementCard = JSON.parse(httpPost('http://localhost:3000/cds-services/lastmeasurement/' + JSON.stringify({
         "hook": "measurement-view",
@@ -108,15 +104,18 @@ function receiveMeasurements(pat) {
             "patientId": pat
         }
     }))).cards[0]
-    console.log("check " + measurementCard)
     if(measurementCard) {
         document.getElementById("measurementModalTitle").textContent = measurementCard.summary;
         document.getElementById("measurementModalText").textContent = measurementCard.detail;
         document.getElementById("measurementModalSource").textContent = measurementCard.source.label;
-        // measurementModal.style.display = "inline-flex";
     }
     showMeasurements(measurements)
 }
+
+var measurementModal = document.getElementById("measurementModal")
+var spanWarning = document.getElementById("closeModelMeasurement")
+spanWarning.onclick = function(){measurementModal.style.display = "none"}
+
 receiveMeasurements(patientId)
 
 
