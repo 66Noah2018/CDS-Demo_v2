@@ -4,7 +4,7 @@ const path = require("path");
 
 router.get('/', async function(req, res, next) {
     try {
-        var services = ['greeter', 'nsaid', 'serotoninSyndrome'].map(function(item) {
+        var services = ['greeter', 'lastmeasurement', 'nsaid', 'serotoninSyndrome'].map(function(item) {
             return require(path.join(__dirname, '..', 'fixtures/', item)).definition;
         })
         res.json(services);
